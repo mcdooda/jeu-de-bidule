@@ -1,7 +1,7 @@
-script: "/main/main.gui_script"
+script: "/1_main/main.gui_script"
 fonts {
   name: "score"
-  font: "/fonts/score.font"
+  font: "/0_common/fonts/score.font"
 }
 background_color {
   x: 0.0
@@ -11,8 +11,8 @@ background_color {
 }
 nodes {
   position {
-    x: 20.0
-    y: 620.0
+    x: 215.0
+    y: 320.0
     z: 0.0
     w: 1.0
   }
@@ -23,9 +23,9 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.173
-    y: 1.173
-    z: 1.173
+    x: 1.0
+    y: 1.0
+    z: 1.0
     w: 1.0
   }
   size {
@@ -42,9 +42,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "0"
+  text: "Jouer"
   font: "score"
-  id: "score"
+  id: "play-button"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER

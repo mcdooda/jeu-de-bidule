@@ -1,8 +1,8 @@
 [project]
-title = Side scroller tutorial
+title = Le Jeu De Bidule
 
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /1_main/main.collectionc
 
 [input]
 game_binding = /input/game.input_bindingc
