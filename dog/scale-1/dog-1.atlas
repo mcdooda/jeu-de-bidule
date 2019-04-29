@@ -1,0 +1,42 @@
+animations {
+  id: "idle"
+  images {
+    image: "/dog/scale-1/idle-1.png"
+  }
+  images {
+    image: "/dog/scale-1/idle-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "sit"
+  images {
+    image: "/dog/scale-1/sit-1.png"
+  }
+  images {
+    image: "/dog/scale-1/sit-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "run"
+  images {
+    image: "/dog/scale-1/run-1.png"
+  }
+  images {
+    image: "/dog/scale-1/run-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0
