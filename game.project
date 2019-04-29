@@ -14,7 +14,7 @@ height = 640
 
 [physics]
 scale = 0.02
-gravity_y = -50.0
+gravity_y = -200.0
 
 [script]
 shared_state = 1

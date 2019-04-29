@@ -101,7 +101,7 @@ instances {
 }
 instances {
   id: "dog-3"
-  prototype: "/dog/scale-3/dog-3.go"
+  prototype: "/dog/kinematic/dog-3.go"
   position {
     x: 150.0
     y: 243.0

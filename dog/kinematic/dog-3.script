@@ -1,0 +1,80 @@
+local max_speed = 200
+local min_y = 60
+local max_y = 600
+
+local function set_dynamic_collision(self)
+	msg.post("#kinematic-collision", "disable")
+	msg.post("#dynamic-collision", "enable")
+end
+
+local function set_kinematic_collision(self)
+	msg.post("#dynamic-collision", "disable")
+	msg.post("#kinematic-collision", "enable")
+end
+
+function init(self)
+	self.has_cursor_position = false
+	self.released_button = false
+	self.cursor_velocity = vmath.vector3(0, 0, 0)
+	self.cursor_position = vmath.vector3(0, 0, 0)
+	
+	msg.post(".", "acquire_input_focus")
+	set_dynamic_collision(self)
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	if self.has_cursor_position and self.released_button then
+		set_dynamic_collision(self)
+		msg.post("#dynamic-collision", "apply_force", {force = self.cursor_velocity * (1 / dt) * 10, position = go.get_world_position()})
+		self.has_cursor_position = false
+		self.released_button = false
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	local pos = go.get_position()
+	if action_id == hash("click") then
+		if not action.released then
+			self.released_button = false
+			
+			msg.post("@render:", "draw_text", { text = "Click: " .. action.x .. "," .. action.y, position = vmath.vector3(20, 20, 0) })
+			msg.post("@render:", "draw_text", { text = "Velocity: " .. self.cursor_velocity.x .. "," .. self.cursor_velocity.y, position = vmath.vector3(20, 40, 0) })
+			
+			set_kinematic_collision(self)
+
+			if self.has_cursor_position then
+				self.cursor_velocity.x = action.x - self.cursor_position.x
+				self.cursor_velocity.y = action.y - self.cursor_position.y
+
+				self.cursor_position.x = action.x
+				self.cursor_position.y = action.y
+			else
+				self.cursor_position.x = action.x
+				self.cursor_position.y = action.y
+
+				self.has_cursor_position = true
+			end
+
+			msg.post("@render:", "draw_text", { text = "Velocity: " .. self.cursor_velocity.x .. "," .. self.cursor_velocity.y, position = vmath.vector3(20, 60, 0) })
+			
+			go.set_position(vmath.vector3(action.x, action.y, pos.z))
+		else
+			self.released_button = true
+		end
+	end
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Remove this function if not needed
+end
