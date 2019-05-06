@@ -1,0 +1,27 @@
+local function init_level(proxy)
+	msg.post(proxy, "init")
+	msg.post(proxy, "enable")
+end
+
+local function deinit_level(proxy)
+	msg.post(proxy, "disable")
+	msg.post(proxy, "final")
+	msg.post(proxy, "unload")
+end
+
+function init(self)
+	self.current_level = nil
+	msg.post(".", "acquire_input_focus")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("load_level") then
+		msg.post("#" .. message.level_name .. "-level-proxy", "load")
+	elseif message_id == hash("proxy_loaded") then
+		if self.current_level then
+			deinit_level(self.current_level)
+		end
+		init_level(sender)
+		self.current_level = sender
+	end
+end

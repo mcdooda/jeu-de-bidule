@@ -1,9 +1,49 @@
-name: "parallax"
+name: "default"
+instances {
+  id: "horizontal-wall-bottom"
+  prototype: "/0_common/walls/horizontal-wall.go"
+  position {
+    x: 215.0
+    y: -25.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "horizontal-wall-top"
+  prototype: "/0_common/walls/horizontal-wall.go"
+  position {
+    x: 215.0
+    y: 665.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 instances {
   id: "vertical-wall-left"
-  prototype: "/0_common/vertical-wall.go"
+  prototype: "/0_common/walls/vertical-wall.go"
   position {
-    x: -10.0
+    x: -25.0
     y: 320.0
     z: 0.0
   }
@@ -21,70 +61,10 @@ instances {
 }
 instances {
   id: "vertical-wall-right"
-  prototype: "/0_common/vertical-wall.go"
+  prototype: "/0_common/walls/vertical-wall.go"
   position {
-    x: 440.0
+    x: 455.0
     y: 320.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "horizontal-wall-bottom"
-  prototype: "/0_common/horizontal-wall.go"
-  position {
-    x: 215.0
-    y: -10.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "horizontal-wall-top"
-  prototype: "/0_common/horizontal-wall.go"
-  position {
-    x: 215.0
-    y: 650.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "dog"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 227.0
-    y: 349.0
     z: 0.0
   }
   rotation {

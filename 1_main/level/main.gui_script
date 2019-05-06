@@ -6,7 +6,7 @@ function on_input(self, action_id, action)
 	if action_id == hash("click") and action.pressed then 
 		local button = gui.get_node("play-button")
 		if gui.pick_node(button, action.x, action.y) then 
-			print("Hello!")
+			msg.post("main:/loader#loader", "load_level", { level_name = "move" })
 		end
 	end
 end

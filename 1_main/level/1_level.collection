@@ -1,7 +1,7 @@
-name: "main"
+name: "default"
 instances {
   id: "main"
-  prototype: "/2_move/main.go"
+  prototype: "/1_main/level/main.go"
   position {
     x: 0.0
     y: 0.0
@@ -12,226 +12,6 @@ instances {
     y: 0.0
     z: 0.0
     w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "vertical-wall-left"
-  prototype: "/0_common/vertical-wall.go"
-  position {
-    x: -10.0
-    y: 320.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "vertical-wall-right"
-  prototype: "/0_common/vertical-wall.go"
-  position {
-    x: 440.0
-    y: 320.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "horizontal-wall-bottom"
-  prototype: "/0_common/horizontal-wall.go"
-  position {
-    x: 215.0
-    y: -10.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "horizontal-wall-top"
-  prototype: "/0_common/horizontal-wall.go"
-  position {
-    x: 215.0
-    y: 650.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "dog"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 94.0
-    y: 504.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "dog1"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 356.0
-    y: 386.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.32113737
-    w: 0.94703263
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "dog2"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 309.0
-    y: 465.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: -0.20810328
-    w: 0.97810686
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "dog3"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 67.0
-    y: 566.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: -0.20810328
-    w: 0.97810686
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "dog4"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 222.0
-    y: 574.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: -0.9060163
-    w: 0.42324287
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "dog5"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 291.0
-    y: 558.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: -0.28096917
-    w: 0.9597168
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "dog6"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 87.0
-    y: 437.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: -0.9421293
-    w: 0.33524972
   }
   scale3 {
     x: 1.0
@@ -260,18 +40,98 @@ instances {
   }
 }
 instances {
-  id: "dog8"
+  id: "dog10"
   prototype: "/1_main/dog/dog-main.go"
   position {
-    x: 371.0
-    y: 520.0
+    x: 281.0
+    y: 507.0
     z: 0.0
   }
   rotation {
     x: 0.0
     y: 0.0
-    z: -0.20810328
-    w: 0.97810686
+    z: -0.9060163
+    w: 0.42324287
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog1"
+  prototype: "/1_main/dog/dog-main.go"
+  position {
+    x: 356.0
+    y: 386.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.32113737
+    w: 0.94703263
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog6"
+  prototype: "/1_main/dog/dog-main.go"
+  position {
+    x: 87.0
+    y: 437.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.9421293
+    w: 0.33524972
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog4"
+  prototype: "/1_main/dog/dog-main.go"
+  position {
+    x: 222.0
+    y: 574.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.9060163
+    w: 0.42324287
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog12"
+  prototype: "/1_main/dog/dog-main.go"
+  position {
+    x: 53.0
+    y: 348.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.97629416
+    w: -0.21644787
   }
   scale3 {
     x: 1.0
@@ -300,26 +160,6 @@ instances {
   }
 }
 instances {
-  id: "dog10"
-  prototype: "/1_main/dog/dog-main.go"
-  position {
-    x: 281.0
-    y: 507.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: -0.9060163
-    w: 0.42324287
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
   id: "dog11"
   prototype: "/1_main/dog/dog-main.go"
   position {
@@ -340,18 +180,118 @@ instances {
   }
 }
 instances {
-  id: "dog12"
+  id: "dog3"
   prototype: "/1_main/dog/dog-main.go"
   position {
-    x: 53.0
-    y: 348.0
+    x: 67.0
+    y: 566.0
     z: 0.0
   }
   rotation {
     x: 0.0
     y: 0.0
-    z: -0.97629416
-    w: -0.21644787
+    z: -0.20810328
+    w: 0.97810686
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog2"
+  prototype: "/1_main/dog/dog-main.go"
+  position {
+    x: 309.0
+    y: 465.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.20810328
+    w: 0.97810686
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog"
+  prototype: "/1_main/dog/dog-main.go"
+  position {
+    x: 94.0
+    y: 504.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog8"
+  prototype: "/1_main/dog/dog-main.go"
+  position {
+    x: 371.0
+    y: 520.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.20810328
+    w: 0.97810686
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog5"
+  prototype: "/1_main/dog/dog-main.go"
+  position {
+    x: 291.0
+    y: 558.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.28096917
+    w: 0.9597168
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+collection_instances {
+  id: "walls"
+  collection: "/0_common/walls/walls.collection"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
   }
   scale3 {
     x: 1.0

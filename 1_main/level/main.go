@@ -1,6 +1,6 @@
 components {
   id: "gui"
-  component: "/1_main/main.gui"
+  component: "/1_main/level/main.gui"
   position {
     x: 0.0
     y: 0.0
@@ -15,7 +15,7 @@ components {
 }
 components {
   id: "script"
-  component: "/1_main/main.script"
+  component: "/1_main/level/main.script"
   position {
     x: 0.0
     y: 0.0
