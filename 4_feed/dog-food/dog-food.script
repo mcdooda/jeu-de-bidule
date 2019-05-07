@@ -1,0 +1,16 @@
+function init(self)
+	go.set_scale(1)
+	local angle = math.pi * math.random()
+	local rotation = vmath.quat_rotation_z(angle)
+	go.set_rotation(rotation)
+	
+	local force = vmath.vector3()
+	force.x = 0
+	force.y = -10000
+	force.z = 0
+
+	local position = go.get_world_position()
+	position.x = position.x + math.random(-1, 1)
+	
+	msg.post("#collision", "apply_force", { force = force, position = position })
+end

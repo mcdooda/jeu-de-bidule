@@ -1,0 +1,9 @@
+images {
+  image: "/0_common/assets/dog-food/dog-bowl.png"
+}
+images {
+  image: "/0_common/assets/dog-food/dog-bowl-full.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0

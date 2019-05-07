@@ -75,7 +75,7 @@ function on_message(self, message_id, message, sender)
 		go.animate("dog-playball", "position", go.PLAYBACK_ONCE_FORWARD, destination, go.EASING_LINEAR, 1.5)
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
-		--msg.post("main:/loader#loader", "load_level", { level_name = "playball" })
+		msg.post("main:/loader#loader", "load_level", { level_name = "feed" })
 	end
 end
 

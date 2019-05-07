@@ -1,0 +1,6 @@
+images {
+  image: "/0_common/assets/dog-food/dog-food-bag.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0
