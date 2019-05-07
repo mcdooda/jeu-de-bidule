@@ -11,7 +11,6 @@ end
 function update(self, dt)
 	-- Add update code here
 	-- Remove this function if not needed
-	msg.post("#collision", "apply_force", { force = vmath.vector3(0, 800, 0), position = go.get_world_position() })
 end
 
 function on_message(self, message_id, message, sender)

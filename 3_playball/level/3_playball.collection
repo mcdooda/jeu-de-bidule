@@ -25,7 +25,7 @@ instances {
   position {
     x: 49.0
     y: 44.0
-    z: 0.0
+    z: 1.0
   }
   rotation {
     x: 0.0
@@ -44,8 +44,8 @@ instances {
   prototype: "/3_playball/ball/ball.go"
   position {
     x: 210.0
-    y: 59.0
-    z: 0.0
+    y: 77.0
+    z: 1.0
   }
   rotation {
     x: 0.0
@@ -119,6 +119,26 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "terrain"
+  prototype: "/3_playball/terrain/terrain.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 collection_instances {
   id: "walls"
   collection: "/0_common/walls/walls.collection"
@@ -140,3 +160,23 @@ collection_instances {
   }
 }
 scale_along_z: 0
+embedded_instances {
+  id: "limit"
+  data: ""
+  position {
+    x: 219.0
+    y: 276.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
