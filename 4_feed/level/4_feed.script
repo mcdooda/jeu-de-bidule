@@ -21,6 +21,7 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("timer_end") then
 		if self.score > self.food_amount * 0.7 then
 			sprite.play_flipbook("dog-bowl#sprite", hash("dog-bowl-full"))
+			msg.post("main:/score#score", "add_score")
 		else
 			
 		end

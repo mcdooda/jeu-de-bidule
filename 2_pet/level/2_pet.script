@@ -32,6 +32,7 @@ function on_message(self, message_id, message, sender)
 		msg.post(".", "release_input_focus")
 		if self.score > 2.5 then
 			sprite.play_flipbook("dog-pet#sprite", hash("goggly-eyes"))
+			msg.post("main:/score#score", "add_score")
 		else
 			sprite.play_flipbook("dog-pet#sprite", hash("cry"))
 		end
