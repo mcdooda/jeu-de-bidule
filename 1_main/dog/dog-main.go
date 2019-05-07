@@ -16,7 +16,7 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "tile_set: \"/0_common/dog/dog.atlas\"\n"
+  data: "tile_set: \"/0_common/assets/dog/dog-atlas.atlas\"\n"
   "default_animation: \"sit\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"

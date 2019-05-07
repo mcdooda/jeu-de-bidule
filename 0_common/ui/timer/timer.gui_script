@@ -1,0 +1,48 @@
+local color1 = vmath.vector3(1.00, 0.60, 0.60) -- red
+local color2 = vmath.vector3(0.60, 1.00, 0.60) -- green
+
+function init(self)
+	self.started = false
+	self.finished = false
+	self.duration = 1
+	self.time = 0
+	self.sender = nil
+	local node = gui.get_node("timer")
+	self.node_original_size = gui.get_size(node)
+	gui.set_enabled(node, false)
+end
+
+function update(self, dt)
+	if not self.started or self.finished then
+		return
+	end
+	
+	self.time = self.time + dt
+
+	local node = gui.get_node("timer")
+	if self.time > self.duration then
+		self.finished = true
+		msg.post(self.sender, "timer_end")
+		gui.set_enabled(node, false)
+	else
+		local progression = self.time / self.duration
+		
+		local size = vmath.vector3(self.node_original_size)
+		size.x = size.x * (1 - progression)
+		gui.set_size(node, size)
+
+		local color = vmath.lerp(progression, color2, color1)
+		gui.set_color(node, color)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("start") then
+		self.started = true
+		self.duration = message.duration
+		self.sender = sender
+		local node = gui.get_node("timer")
+		gui.set_enabled(node, true)
+	end
+end
+

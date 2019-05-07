@@ -1,10 +1,10 @@
 animations {
   id: "idle"
   images {
-    image: "/0_common/dog/idle-1.png"
+    image: "/0_common/assets/dog/idle-1.png"
   }
   images {
-    image: "/0_common/dog/idle-2.png"
+    image: "/0_common/assets/dog/idle-2.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 5
@@ -14,10 +14,10 @@ animations {
 animations {
   id: "sit"
   images {
-    image: "/0_common/dog/sit-1.png"
+    image: "/0_common/assets/dog/sit-1.png"
   }
   images {
-    image: "/0_common/dog/sit-2.png"
+    image: "/0_common/assets/dog/sit-2.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 5
@@ -27,10 +27,10 @@ animations {
 animations {
   id: "run"
   images {
-    image: "/0_common/dog/run-1.png"
+    image: "/0_common/assets/dog/run-1.png"
   }
   images {
-    image: "/0_common/dog/run-2.png"
+    image: "/0_common/assets/dog/run-2.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 5

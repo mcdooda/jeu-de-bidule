@@ -1,6 +1,6 @@
 components {
-  id: "gui"
-  component: "/1_main/level/main.gui"
+  id: "2_pet"
+  component: "/2_pet/level/2_pet.script"
   position {
     x: 0.0
     y: 0.0
@@ -14,8 +14,8 @@ components {
   }
 }
 components {
-  id: "script"
-  component: "/1_main/level/main.script"
+  id: "timer"
+  component: "/0_common/ui/timer/timer.gui"
   position {
     x: 0.0
     y: 0.0

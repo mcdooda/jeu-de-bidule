@@ -1,0 +1,26 @@
+function init(self)
+	self.started = false
+	self.finished = false
+	self.time = 0
+	self.sender = nil
+end
+
+function update(self, dt)
+	if not self.started or self.finished then
+		return
+	end
+
+	self.time = self.time + dt
+	if self.time > 2 then
+		self.finished = true
+		msg.post(self.sender, "outro_end")
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("start") then
+		self.started = true
+		self.sender = sender
+	end
+end
+

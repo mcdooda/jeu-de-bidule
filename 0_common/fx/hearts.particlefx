@@ -14,20 +14,20 @@ emitters {
     z: 0.0
     w: 1.0
   }
-  tile_source: "/builtins/graphics/particle_blob.tilesource"
-  animation: "anim"
+  tile_source: "/0_common/assets/heart/heart-atlas.atlas"
+  animation: "heart"
   material: "/builtins/materials/particlefx.material"
-  blend_mode: BLEND_MODE_ADD
+  blend_mode: BLEND_MODE_ALPHA
   particle_orientation: PARTICLE_ORIENTATION_DEFAULT
   inherit_velocity: 0.0
-  max_particle_count: 128
-  type: EMITTER_TYPE_SPHERE
+  max_particle_count: 32
+  type: EMITTER_TYPE_CIRCLE
   start_delay: 0.0
   properties {
     key: EMITTER_KEY_SPAWN_RATE
     points {
       x: 0.0
-      y: 50.0
+      y: 10.0
       t_x: 1.0
       t_y: 0.0
     }
@@ -37,7 +37,7 @@ emitters {
     key: EMITTER_KEY_SIZE_X
     points {
       x: 0.0
-      y: 8.0
+      y: 39.942
       t_x: 1.0
       t_y: 0.0
     }
@@ -47,7 +47,7 @@ emitters {
     key: EMITTER_KEY_SIZE_Y
     points {
       x: 0.0
-      y: 8.0
+      y: 19.675
       t_x: 1.0
       t_y: 0.0
     }
@@ -71,13 +71,13 @@ emitters {
       t_x: 1.0
       t_y: 0.0
     }
-    spread: 0.5
+    spread: 0.0
   }
   properties {
     key: EMITTER_KEY_PARTICLE_SPEED
     points {
       x: 0.0
-      y: 100.0
+      y: 20.0
       t_x: 1.0
       t_y: 0.0
     }
@@ -87,11 +87,11 @@ emitters {
     key: EMITTER_KEY_PARTICLE_SIZE
     points {
       x: 0.0
-      y: 20.0
+      y: 40.0
       t_x: 1.0
       t_y: 0.0
     }
-    spread: 10.0
+    spread: 0.0
   }
   properties {
     key: EMITTER_KEY_PARTICLE_RED
@@ -141,7 +141,7 @@ emitters {
       t_x: 1.0
       t_y: 0.0
     }
-    spread: 0.0
+    spread: 45.0
   }
   properties {
     key: EMITTER_KEY_PARTICLE_STRETCH_FACTOR_X
@@ -213,27 +213,15 @@ emitters {
     key: PARTICLE_KEY_ALPHA
     points {
       x: 0.0
-      y: 0.0
-      t_x: 0.07194582
-      t_y: 0.99740857
-    }
-    points {
-      x: 0.11320755
-      y: 0.99277455
-      t_x: 0.99418455
-      t_y: 0.10768964
-    }
-    points {
-      x: 0.8407784
-      y: 0.2569756
-      t_x: 0.5694311
-      t_y: -0.82203907
+      y: 1.0
+      t_x: 1.0
+      t_y: 0.0
     }
     points {
       x: 1.0
-      y: 0.0072254334
-      t_x: 0.4737472
-      t_y: -0.8806609
+      y: -0.0029204031
+      t_x: 1.0
+      t_y: 0.0
     }
   }
   particle_properties {
@@ -267,7 +255,7 @@ emitters {
     key: PARTICLE_KEY_ANGULAR_VELOCITY
     points {
       x: 0.0
-      y: 1.0
+      y: 0.0
       t_x: 1.0
       t_y: 0.0
     }

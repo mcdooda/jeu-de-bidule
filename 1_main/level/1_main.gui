@@ -1,7 +1,7 @@
-script: "/1_main/level/main.gui_script"
+script: "/1_main/level/1_main.gui_script"
 fonts {
-  name: "score"
-  font: "/0_common/fonts/score.font"
+  name: "default-font"
+  font: "/0_common/fonts/default-font.font"
 }
 background_color {
   x: 0.0
@@ -43,7 +43,7 @@ nodes {
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: "Jouer"
-  font: "score"
+  font: "default-font"
   id: "play-button"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE

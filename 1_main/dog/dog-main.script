@@ -30,7 +30,7 @@ end
 function update(self, dt)
 	if self.has_cursor_position and self.released_button then
 		set_dynamic_collision(self)
-		msg.post("#dynamic-collision", "apply_force", {force = self.cursor_velocity * (1 / dt) * 30, position = go.get_world_position()})
+		msg.post("#dynamic-collision", "apply_force", { force = self.cursor_velocity * (1 / dt) * 30, position = go.get_world_position() })
 		self.has_cursor_position = false
 		self.released_button = false
 	end
