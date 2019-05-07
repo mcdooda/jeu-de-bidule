@@ -1,7 +1,7 @@
 local function throw_ball(self)
 	local force = vmath.vector3()
 	local duration = self.released.time - self.pressed.time
-	local force_multiplier = 1000
+	local force_multiplier = 700
 	force.x = ((self.released.position.x - self.pressed.position.x) / duration) * force_multiplier
 	force.y = ((self.released.position.y - self.pressed.position.y) / duration) * force_multiplier
 	force.z = 0
@@ -32,14 +32,20 @@ function init(self)
 	self.limit_y = go.get_world_position("limit").y
 	self.ball_thrown = false
 	self.ball_stopped = false
+	self.ball_previous_position = go.get_world_position("ball")
 end
 
 function update(self, dt)
 	self.time = self.time + dt
-	if self.ball_thrown then
-		local ball_velocity = go.get("ball#collision", "linear_velocity")
-		self.ball_stopped = vmath.length(ball_velocity) < 10
-		msg.post(".", "ball_stopped")
+	local ball_position = go.get_world_position("ball")
+	local ball_velocity = (ball_position - self.ball_previous_position) * (1 / dt)
+	self.ball_previous_position = vmath.vector3(ball_position)
+	if self.ball_thrown and not self.ball_stopped then
+		local ball_speed = vmath.length(ball_velocity)
+		self.ball_stopped = ball_speed > 0 and ball_speed < 5
+		if self.ball_stopped then
+			msg.post(".", "ball_stopped")
+		end
 	end
 end
 
@@ -49,12 +55,25 @@ function on_message(self, message_id, message, sender)
 		msg.post("timer", "start", { duration = 3 })
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
-
 		if not self.ball_thrown then
-			msg.post("outro", "start")
+			msg.post(".", "ball_stopped")
 		end
 	elseif message_id == hash("ball_stopped") then
-		--TODO
+		msg.post("ball#collision", "disable")
+		local ball_position = go.get_world_position("ball")
+		local dog_z = go.get_position("dog-playball").z
+		local destination
+		local animation
+		if ball_position.y > self.limit_y then
+			destination = vmath.vector3(ball_position.x, ball_position.y, dog_z)
+			animation = hash("run")
+		else
+			destination = vmath.vector3(-50, -50, dog_z)
+			animation = hash("idle")
+		end
+		sprite.play_flipbook("dog-playball#sprite", animation)
+		go.animate("dog-playball", "position", go.PLAYBACK_ONCE_FORWARD, destination, go.EASING_LINEAR, 1.5)
+		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
 		--msg.post("main:/loader#loader", "load_level", { level_name = "playball" })
 	end
