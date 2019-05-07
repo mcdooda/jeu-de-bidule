@@ -53,11 +53,6 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
 		msg.post("timer", "start", { duration = 3 })
-	elseif message_id == hash("timer_end") then
-		msg.post(".", "release_input_focus")
-		if not self.ball_thrown then
-			msg.post(".", "ball_stopped")
-		end
 	elseif message_id == hash("ball_stopped") then
 		msg.post("ball#collision", "disable")
 		local ball_position = go.get_world_position("ball")
@@ -74,6 +69,11 @@ function on_message(self, message_id, message, sender)
 		sprite.play_flipbook("dog-playball#sprite", animation)
 		go.animate("dog-playball", "position", go.PLAYBACK_ONCE_FORWARD, destination, go.EASING_LINEAR, 1.5)
 		msg.post("outro", "start")
+	elseif message_id == hash("timer_end") then
+		msg.post(".", "release_input_focus")
+		if not self.ball_thrown then
+			msg.post(".", "ball_stopped")
+		end
 	elseif message_id == hash("outro_end") then
 		msg.post("main:/loader#loader", "load_level", { level_name = "feed" })
 	end
