@@ -3,12 +3,27 @@ local function update_gui(self)
 	gui.set_text(node, tostring(self.score))
 end
 
+local function show_gui(self)
+	local node = gui.get_node("score")
+	gui.set_enabled(node, true)
+end
+
+local function hide_gui(self)
+	local node = gui.get_node("score")
+	gui.set_enabled(node, false)
+end
+
 function init(self)
 	self.score = 0
+	hide_gui(self)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("reset_score") then
+	if message_id == hash("show_score") then
+		show_gui(self)
+	elseif message_id == hash("hide_score") then
+		hide_gui(self)
+	elseif message_id == hash("reset_score") then
 		self.score = 0
 		update_gui(self)
 	elseif message_id == hash("add_score") then
