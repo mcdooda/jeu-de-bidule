@@ -39,7 +39,7 @@ function on_message(self, message_id, message, sender)
 		hide_hand(self)
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
-		msg.post("main:/loader#loader", "load_level", { level_name = "playball" })
+		msg.post("main:/loader#loader", "load_next_level")
 	end
 end
 

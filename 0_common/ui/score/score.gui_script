@@ -11,10 +11,8 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("reset_score") then
 		self.score = 0
 		update_gui(self)
-		print("reset score")
 	elseif message_id == hash("add_score") then
 		self.score = self.score + 1
 		update_gui(self)
-		print("score=", self.score)
 	end
 end

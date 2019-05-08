@@ -1,3 +1,4 @@
 function init(self)
-	msg.post("/loader#loader", "load_level", { level_name = "main" })
+	--msg.post("/loader#loader", "load_level", { level_name = "main" })
+	msg.post("/loader#loader", "load_first_level")
 end

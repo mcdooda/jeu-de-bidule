@@ -76,7 +76,7 @@ function on_message(self, message_id, message, sender)
 			msg.post(".", "ball_stopped")
 		end
 	elseif message_id == hash("outro_end") then
-		msg.post("main:/loader#loader", "load_level", { level_name = "feed" })
+		msg.post("main:/loader#loader", "load_next_level")
 	end
 end
 

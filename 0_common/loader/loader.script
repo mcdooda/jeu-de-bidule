@@ -1,3 +1,10 @@
+local levels = {
+	"main",
+	"pet",
+	"playball",
+	"feed"
+}
+
 local function init_level(proxy)
 	msg.post(proxy, "init")
 	msg.post(proxy, "enable")
@@ -11,17 +18,39 @@ end
 
 function init(self)
 	self.current_level = nil
+	self.current_level_name = nil
+	self.loading_level_name = nil
 	msg.post(".", "acquire_input_focus")
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("load_level") then
 		msg.post("#" .. message.level_name .. "-level-proxy", "load")
+		self.loading_level_name = message.level_name
+	elseif message_id == hash("load_first_level") then
+		msg.post(".", "load_level", { level_name = levels[1] })
+	elseif message_id == hash("load_next_level") then
+		assert(self.current_level_name)
+		local current_level_index
+		for i = 1, #levels do
+			local level_name = levels[i]
+			if level_name == self.current_level_name then
+				current_level_index = i
+				break
+			end
+		end
+		assert(current_level_index)
+		local next_level_index = (current_level_index) % #levels + 1
+		local next_level_name = levels[next_level_index]
+		assert(next_level_name, "no next level??")
+		msg.post(".", "load_level", { level_name = next_level_name })
 	elseif message_id == hash("proxy_loaded") then
 		if self.current_level then
 			deinit_level(self.current_level)
 		end
 		init_level(sender)
 		self.current_level = sender
+		self.current_level_name = self.loading_level_name
+		self.loading_level_name = nil
 	end
 end
