@@ -24,7 +24,7 @@ function on_message(self, message_id, message, sender)
 			sprite.play_flipbook("dog-bowl#sprite", hash("dog-bowl-full"))
 			msg.post("main:/score#score", "add_score")
 		else
-			
+			-- TODO lost animation
 		end
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then

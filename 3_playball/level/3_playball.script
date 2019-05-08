@@ -12,7 +12,7 @@ local function throw_ball(self)
 	
 	msg.post("ball#collision", "apply_force", { force = force, position = position })
 
-	self.ball_thrown = true
+	self.ball_thrown = vmath.length(force) > 0
 	self.ball_stopped = false
 end
 

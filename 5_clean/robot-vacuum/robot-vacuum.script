@@ -1,0 +1,30 @@
+local speed = 300
+
+function init(self)
+	self.direction = nil
+end
+
+function update(self, dt)
+	if self.direction then
+		local position = go.get_position()
+		position = position + self.direction * speed * dt
+		go.set_position(position)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("move_towards") then
+		local position = go.get_position()
+		local direction = vmath.vector3(message.x - position.x, message.y - position.y, 0)
+		if vmath.length(direction) > 20 then
+			self.direction = vmath.normalize(direction)
+			local angle = math.atan2(self.direction.y, self.direction.x)
+			local rotation = vmath.quat_rotation_z(angle)
+			go.set_rotation(rotation)
+		else
+			--self.direction = nil
+		end
+	elseif message_id == hash("stop_move") then
+		--self.direction = nil
+	end
+end

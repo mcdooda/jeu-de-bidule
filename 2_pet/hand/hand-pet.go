@@ -15,7 +15,7 @@ components {
 }
 components {
   id: "hearts"
-  component: "/0_common/fx/hearts.particlefx"
+  component: "/2_pet/hand/hearts.particlefx"
   position {
     x: -8.0
     y: 5.0

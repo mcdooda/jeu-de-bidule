@@ -1,0 +1,24 @@
+local animation_duration = 0.3
+
+function init(self)
+	self.cleaned = false
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") then
+		if self.cleaned then
+			return
+		end
+		self.cleaned = true
+		msg.post("#collision", "disable")
+		local position = go.get_position("robot-vacuum")
+		go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, position, go.EASING_INCIRC, animation_duration)
+		go.animate("#sprite", "tint", go.PLAYBACK_ONCE_FORWARD, vmath.vector4(1,1,1,0), go.EASING_LINEAR, animation_duration)
+		go.animate("#sprite", "scale", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_INCIRC, animation_duration)
+		timer.delay(animation_duration, false, function()
+			go.delete()
+		end)
+
+		msg.post("5_clean", "add_score", { fur_hash = msg.url(".").path })
+	end
+end

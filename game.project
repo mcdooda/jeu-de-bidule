@@ -2,7 +2,7 @@
 title = Le Jeu De Bidule
 
 [bootstrap]
-main_collection = /1_main/init/main.collectionc
+main_collection = /0_common/init/main.collectionc
 
 [input]
 game_binding = /input/game.input_bindingc

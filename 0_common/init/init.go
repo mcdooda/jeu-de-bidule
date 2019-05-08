@@ -1,6 +1,6 @@
 components {
   id: "init"
-  component: "/1_main/init/init.script"
+  component: "/0_common/init/init.script"
   position {
     x: 0.0
     y: 0.0

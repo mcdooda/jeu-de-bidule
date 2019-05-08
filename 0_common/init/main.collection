@@ -21,7 +21,7 @@ instances {
 }
 instances {
   id: "init"
-  prototype: "/1_main/init/init.go"
+  prototype: "/0_common/init/init.go"
   position {
     x: 0.0
     y: 0.0

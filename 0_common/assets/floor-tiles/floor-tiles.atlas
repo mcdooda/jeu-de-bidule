@@ -1,0 +1,6 @@
+images {
+  image: "/0_common/assets/floor-tiles/floor-tiles.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0
