@@ -69,7 +69,7 @@ function on_message(self, message_id, message, sender)
 			animation = hash("idle")
 		end
 		sprite.play_flipbook("dog-playball#sprite", animation)
-		go.animate("dog-playball", "position", go.PLAYBACK_ONCE_FORWARD, destination, go.EASING_LINEAR, 1.5)
+		go.animate("dog-playball", "position", go.PLAYBACK_ONCE_FORWARD, destination, go.EASING_LINEAR, 2.5)
 		msg.post("outro", "start")
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
