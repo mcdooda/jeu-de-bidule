@@ -10,20 +10,22 @@ local function spawn_fur(self)
 	local max_x = screen_width - margin
 	local min_y = margin
 	local max_y = screen_height - margin
-	local min_z = 0
+	local min_z = 0.0
 	local max_z = 0.5
 	local scale = vmath.vector3(2, 2, 1)
 	self.fur = {}
 	for i = 1, fur_amount do
 		position.x = math.random(min_x, max_x)
 		position.y = math.random(min_y, max_y)
-		position.z = math.random(min_z, max_z)
+		position.z = vmath.lerp(i / fur_amount, min_z, max_z)
 
 		local angle = math.pi * math.random()
 		local rotation = vmath.quat_rotation_z(angle)
 		
 		local fur_hash = factory.create("#dog-fur-factory", position, rotation, nil, scale)
 		self.fur[fur_hash] = true
+		local fur_sprite_url = msg.url(nil, fur_hash, "sprite")
+		go.set(fur_sprite_url, "tint.w", 1)
 	end
 end
 
@@ -46,9 +48,10 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
 		if self.score > fur_amount * 0.6 then
+			print("fade")
 			for fur_hash in pairs(self.fur) do
 				local fur_sprite_url = msg.url(nil, fur_hash, "sprite")
-				go.animate(fur_sprite_url, "tint", go.PLAYBACK_ONCE_FORWARD, vmath.vector4(1,1,1,0), go.EASING_LINEAR, 0.3)
+				go.animate(fur_sprite_url, "tint.w", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_LINEAR, 0.3)
 			end
 			msg.post("main:/score#score", "add_score")
 		else
