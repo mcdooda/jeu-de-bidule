@@ -1,0 +1,6 @@
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") then
+		msg.post("6_pickup", "add_score", { poop_hash = msg.url(".").path })
+		go.delete()
+	end
+end

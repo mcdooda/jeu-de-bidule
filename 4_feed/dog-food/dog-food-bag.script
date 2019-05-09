@@ -1,4 +1,6 @@
-local screen_width = 430
+local settings = require("0_common.modules.settings")
+
+local screen_width = settings.screen_width
 
 function init(self)
 	self.timer = nil

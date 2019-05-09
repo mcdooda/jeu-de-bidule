@@ -1,0 +1,4 @@
+function init(self)
+	local index = math.random(1, 8)
+	sprite.play_flipbook("#sprite", "grass-" .. tostring(index))
+end

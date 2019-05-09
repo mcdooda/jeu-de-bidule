@@ -1,5 +1,7 @@
-local screen_width = 430
-local screen_height = 640
+local settings = require("0_common.modules.settings")
+
+local screen_width = settings.screen_width
+local screen_height = settings.screen_height
 local margin = 20
 
 local fur_amount = 100
@@ -12,7 +14,6 @@ local function spawn_fur(self)
 	local max_y = screen_height - margin
 	local min_z = 0.0
 	local max_z = 0.5
-	local scale = vmath.vector3(2, 2, 1)
 	self.fur = {}
 	for i = 1, fur_amount do
 		position.x = math.random(min_x, max_x)
@@ -22,15 +23,12 @@ local function spawn_fur(self)
 		local angle = math.pi * math.random()
 		local rotation = vmath.quat_rotation_z(angle)
 		
-		local fur_hash = factory.create("#dog-fur-factory", position, rotation, nil, scale)
+		local fur_hash = factory.create("#dog-fur-factory", position, rotation, nil, 2)
 		self.fur[fur_hash] = true
-		local fur_sprite_url = msg.url(nil, fur_hash, "sprite")
-		go.set(fur_sprite_url, "tint.w", 1)
 	end
 end
 
 function init(self)
-	msg.post("@render:", "clear_color", { color = vmath.vector4(0.32, 0.60, 1, 0) } )
 	msg.post("/intro#intro", "start", { text = "Nettoie !" })
 	msg.post("main:/score#score", "show_score")
 	spawn_fur(self)
@@ -48,7 +46,6 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
 		if self.score > fur_amount * 0.6 then
-			print("fade")
 			for fur_hash in pairs(self.fur) do
 				local fur_sprite_url = msg.url(nil, fur_hash, "sprite")
 				go.animate(fur_sprite_url, "tint.w", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_LINEAR, 0.3)

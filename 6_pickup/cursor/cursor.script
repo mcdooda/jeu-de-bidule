@@ -1,0 +1,8 @@
+function on_message(self, message_id, message, sender)
+	if message_id == hash("set_position") then
+		local position = go.get_position() -- keep z
+		position.x = message.x
+		position.y = message.y
+		go.set_position(position)
+	end
+end

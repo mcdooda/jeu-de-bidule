@@ -11,7 +11,7 @@ function update(self, dt)
 	end
 
 	self.time = self.time + dt
-	if self.time > 2 then
+	if self.time > 3 then
 		self.finished = true
 		msg.post(self.sender, "outro_end")
 	end

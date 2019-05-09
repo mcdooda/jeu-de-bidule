@@ -4,6 +4,7 @@ local levels = {
 	"playball",
 	"feed",
 	"clean",
+	"pickup",
 }
 
 local function init_level(proxy)

@@ -87,10 +87,12 @@ function on_input(self, action_id, action)
 			self.pressed.position = vmath.vector3(action.x, action.y, 0)
 			self.pressed.time = self.time
 		elseif action.released then
-			self.released.position = vmath.vector3(action.x, action.y, 0)
-			self.released.time = self.time
-			throw_ball(self)
-			msg.post(".", "release_input_focus")
+			if self.pressed.time then
+				self.released.position = vmath.vector3(action.x, action.y, 0)
+				self.released.time = self.time
+				throw_ball(self)
+				msg.post(".", "release_input_focus")
+			end
 		end
 		return true
 	end
