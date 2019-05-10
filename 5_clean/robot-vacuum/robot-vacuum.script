@@ -21,10 +21,9 @@ function on_message(self, message_id, message, sender)
 			local angle = math.atan2(self.direction.y, self.direction.x)
 			local rotation = vmath.quat_rotation_z(angle)
 			go.set_rotation(rotation)
-		else
-			--self.direction = nil
 		end
 	elseif message_id == hash("stop_move") then
-		--self.direction = nil
+		self.direction = nil
+		particlefx.play("#smoke")
 	end
 end

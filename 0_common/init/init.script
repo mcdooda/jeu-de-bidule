@@ -1,6 +1,6 @@
 function init(self)
-	math.randomseed(os.clock()*100000000000)
+	math.randomseed(os.clock() * 100000000000)
 	
-	--msg.post("/loader#loader", "load_level", { level_name = "playball" })
-	msg.post("/loader#loader", "load_first_level")
+	msg.post("/loader#loader", "load_level", { level_name = "clean" })
+	--msg.post("/loader#loader", "load_first_level")
 end

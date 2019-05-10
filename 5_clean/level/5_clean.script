@@ -52,7 +52,7 @@ function on_message(self, message_id, message, sender)
 			end
 			msg.post("main:/score#score", "add_score")
 		else
-			-- TODO lost animation
+			msg.post("robot-vacuum", "stop_move")
 		end
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
