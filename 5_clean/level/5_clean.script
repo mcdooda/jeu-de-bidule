@@ -50,6 +50,21 @@ function on_message(self, message_id, message, sender)
 				local fur_sprite_url = msg.url(nil, fur_hash, "sprite")
 				go.animate(fur_sprite_url, "tint.w", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_LINEAR, 0.3)
 			end
+			local num_sparkles = 30
+			local min_x = margin
+			local max_x = screen_width - margin
+			local min_y = margin
+			local max_y = screen_height - margin
+			local min_z = 0.0
+			local max_z = 0.5
+			local position = vmath.vector3()
+			for i = 1, num_sparkles do
+				position.x = math.random(min_x, max_x)
+				position.y = math.random(min_y, max_y)
+				position.z = vmath.lerp(i / num_sparkles, min_z, max_z)
+
+				local fur_hash = factory.create("#sparkles-factory", position, nil, nil, 2)
+			end
 			msg.post("main:/score#score", "add_score")
 		else
 			msg.post("robot-vacuum", "stop_move")
