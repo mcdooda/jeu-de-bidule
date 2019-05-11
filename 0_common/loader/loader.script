@@ -19,6 +19,8 @@ local function deinit_level(proxy)
 end
 
 function init(self)
+	msg.post("#interlude-proxy", "load")
+	
 	self.current_level = nil
 	self.current_level_name = nil
 	self.loading_level_name = nil
@@ -27,8 +29,8 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("load_level") then
-		msg.post("#" .. message.level_name .. "-level-proxy", "load")
 		self.loading_level_name = message.level_name
+		msg.post("#" .. message.level_name .. "-level-proxy", "load")
 	elseif message_id == hash("load_first_level") then
 		msg.post(".", "load_level", { level_name = levels[1] })
 	elseif message_id == hash("load_next_level") then
@@ -46,13 +48,23 @@ function on_message(self, message_id, message, sender)
 		local next_level_name = levels[next_level_index]
 		assert(next_level_name, "no next level??")
 		msg.post(".", "load_level", { level_name = next_level_name })
-	elseif message_id == hash("proxy_loaded") then
+	elseif message_id == hash("level_finished") then
 		if self.current_level then
 			deinit_level(self.current_level)
 		end
-		init_level(sender)
-		self.current_level = sender
-		self.current_level_name = self.loading_level_name
-		self.loading_level_name = nil
+		msg.post("interlude:/interlude", "resume", { won_level = message.won_level })
+		msg.post("#interlude-proxy", "enable")
+	elseif message_id == hash("interlude_finished") then
+		msg.post("#interlude-proxy", "disable")
+		msg.post(".", "load_next_level")
+	elseif message_id == hash("proxy_loaded") then
+		if sender == msg.url("#interlude-proxy") then
+			msg.post("#interlude-proxy", "init")
+		else
+			init_level(sender)
+			self.current_level = sender
+			self.current_level_name = self.loading_level_name
+			self.loading_level_name = nil
+		end
 	end
 end

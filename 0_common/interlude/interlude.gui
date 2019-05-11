@@ -1,7 +1,7 @@
-script: "/0_common/ui/intro/intro.gui_script"
+script: "/0_common/interlude/interlude.gui_script"
 fonts {
   name: "default-font"
-  font: "/0_common/fonts/default-font-80.font"
+  font: "/0_common/fonts/default-font-50.font"
 }
 background_color {
   x: 0.0
@@ -42,9 +42,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "<Instructions>"
+  text: "Occupe-toi de bidule !"
   font: "default-font"
-  id: "instructions"
+  id: "won-text"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -61,7 +61,7 @@ nodes {
     w: 1.0
   }
   adjust_mode: ADJUST_MODE_FIT
-  line_break: false
+  line_break: true
   layer: ""
   inherit_alpha: true
   alpha: 1.0

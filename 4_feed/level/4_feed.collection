@@ -1,4 +1,4 @@
-name: "default"
+name: "4_feed"
 instances {
   id: "4_feed"
   prototype: "/4_feed/level/4_feed.go"

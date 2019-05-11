@@ -1,0 +1,41 @@
+local function set_won_text(text)
+	local node = gui.get_node("won-text")
+	gui.set_text(node, text)
+end
+
+local function resume_interlude(self, won_level)
+	self.time = 0
+	local node = gui.get_node("won-text")
+	if won_level then
+		set_won_text("Gagné :)")
+	elseif won_level == false then
+		set_won_text("Perdu :(")
+	else
+		set_won_text(self.default_text)
+	end
+end
+
+local function finish_interlude(self)
+	set_won_text("")
+end
+
+function init(self)
+	local node = gui.get_node("won-text")
+	self.default_text = gui.get_text(node)
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+	self.time = self.time + dt
+	if self.time > 3 then
+		finish_interlude(self)
+		msg.post("main:/loader#loader", "interlude_finished")
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("resume") then
+		resume_interlude(self, message.won_level)
+	end
+end

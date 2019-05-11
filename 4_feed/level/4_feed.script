@@ -4,6 +4,7 @@ function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post("main:/score#score", "show_score")
 
+	self.won_level = false
 	self.score = 0
 	self.food_amount = 0
 end
@@ -21,6 +22,7 @@ function on_message(self, message_id, message, sender)
 		self.score = self.score + 1
 	elseif message_id == hash("timer_end") then
 		if self.score > self.food_amount * 0.7 then
+			self.won_level = true
 			sprite.play_flipbook("dog-bowl#sprite", hash("dog-bowl-full"))
 			msg.post("main:/score#score", "add_score")
 		else
@@ -28,7 +30,7 @@ function on_message(self, message_id, message, sender)
 		end
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
-		msg.post("main:/loader#loader", "load_next_level")
+		msg.post("main:/loader#loader", "level_finished", { won_level = self.won_level })
 	end
 end
 

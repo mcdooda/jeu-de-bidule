@@ -1,6 +1,8 @@
 function init(self)
 	math.randomseed(os.clock() * 100000000000)
+
+	msg.post("@render:", "use_fixed_fit_projection")
 	
-	--msg.post("/loader#loader", "load_level", { level_name = "dontfall" })
+	--msg.post("/loader#loader", "load_level", { level_name = "clean" })
 	msg.post("/loader#loader", "load_first_level")
 end

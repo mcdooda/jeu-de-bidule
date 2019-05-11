@@ -80,6 +80,7 @@ function init(self)
 	plan_introduction(self)
 	spawn_grass(self)
 
+	self.won_level = false
 	self.score = 0
 end
 
@@ -93,6 +94,7 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
 		if self.score >= num_poops then
+			self.won_level = true
 			local original_dog_position = go.get_position("dog-pickup")
 			local position = vmath.vector3()
 			position.z = original_dog_position.z
@@ -111,7 +113,7 @@ function on_message(self, message_id, message, sender)
 		end
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
-		msg.post("main:/loader#loader", "load_next_level")
+		msg.post("main:/loader#loader", "level_finished", { won_level = self.won_level })
 	end
 end
 

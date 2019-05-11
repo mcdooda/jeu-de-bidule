@@ -1,7 +1,7 @@
 script: "/0_common/ui/score/score.gui_script"
 fonts {
   name: "default-font"
-  font: "/0_common/fonts/default-font.font"
+  font: "/0_common/fonts/default-font-80.font"
 }
 background_color {
   x: 0.0
