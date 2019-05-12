@@ -1,0 +1,54 @@
+local levels = require("0_common.levels.levels")
+
+local function get_path_point_position(index)
+	local path_position = go.get_position("path")
+	local path_width = go.get("path#sprite", "size.x")
+	local path_scale_x = go.get("path", "scale.x")
+	local min_x = path_position.x - (path_width * path_scale_x) / 2
+	local max_x = path_position.x + (path_width * path_scale_x) / 2
+	local position = vmath.vector3()
+	position.x = vmath.lerp((index - 1) / (#levels - 1), min_x, max_x)
+	position.y = path_position.y
+	position.z = path_position.z + 0.1
+	return position
+end
+
+local function get_dog_position(index)
+	local dog_position = get_path_point_position(index)
+	dog_position.z = go.get_position("dog-interlude").z
+	return dog_position
+end
+
+local function spawn_path_points(self)
+	for i = 1, #levels do
+		local position = get_path_point_position(i)
+		factory.create("#path-checkpoint-factory", position)
+	end
+end
+
+local function resume_interlude(self, won_level)
+	msg.post("@render:", "clear_color", { color = vmath.vector4(0.50, 0.76, 0.42, 0) })
+	if won_level then
+		self.current_point_index = self.current_point_index + 1
+		local new_dog_position = get_dog_position(self.current_point_index)
+		timer.delay(1, false, function()
+			sprite.play_flipbook("dog-interlude#sprite", "run")
+			go.animate("dog-interlude", "position", go.PLAYBACK_ONCE_FORWARD, new_dog_position, go.EASING_LINEAR, 1, 0, function()
+				sprite.play_flipbook("dog-interlude#sprite", "sit")
+			end)
+		end)
+	end
+end
+
+function init(self)
+	self.current_point_index = 1
+	spawn_path_points(self)
+	local dog_init_position = get_dog_position(self.current_point_index)
+	go.set_position(dog_init_position, "dog-interlude")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("resume") then
+		resume_interlude(self, message.won_level)
+	end
+end

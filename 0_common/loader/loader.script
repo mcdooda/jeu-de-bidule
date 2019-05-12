@@ -1,11 +1,4 @@
-local levels = {
-	"main",
-	"pet",
-	"playball",
-	"feed",
-	"clean",
-	"pickup",
-}
+local levels = require("0_common.levels.levels")
 
 local function init_level(proxy)
 	msg.post(proxy, "init")
