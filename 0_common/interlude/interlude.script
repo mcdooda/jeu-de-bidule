@@ -40,15 +40,21 @@ local function resume_interlude(self, won_level)
 	end
 end
 
-function init(self)
+local function start_interlude(self)
 	self.current_point_index = 1
-	spawn_path_points(self)
 	local dog_init_position = get_dog_position(self.current_point_index)
 	go.set_position(dog_init_position, "dog-interlude")
 end
 
+function init(self)
+	spawn_path_points(self)
+	start_interlude(self)
+end
+
 function on_message(self, message_id, message, sender)
-	if message_id == hash("resume") then
+	if message_id == hash("start") then
+		start_interlude(self)
+	elseif message_id == hash("resume") then
 		resume_interlude(self, message.won_level)
 	end
 end

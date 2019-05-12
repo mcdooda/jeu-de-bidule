@@ -10,8 +10,6 @@ local function resume_interlude(self, won_level)
 		set_won_text("Gagné :)")
 	elseif won_level == false then
 		set_won_text("Perdu :(")
-	else
-		set_won_text(self.default_text)
 	end
 end
 
@@ -19,9 +17,14 @@ local function finish_interlude(self)
 	set_won_text("")
 end
 
+local function start_interlude(self)
+	set_won_text(self.default_text)
+end
+
 function init(self)
 	local node = gui.get_node("won-text")
 	self.default_text = gui.get_text(node)
+	start_interlude(self)
 end
 
 function update(self, dt)
@@ -35,7 +38,9 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("resume") then
+	if message_id == hash("start") then
+		start_interlude(self)
+	elseif message_id == hash("resume") then
 		resume_interlude(self, message.won_level)
 	end
 end
