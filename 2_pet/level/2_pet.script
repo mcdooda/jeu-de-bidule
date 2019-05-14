@@ -11,7 +11,7 @@ local function hide_hand(self)
 end
 
 function init(self)
-	msg.post("main:/background", "set_color", { color = vmath.vector4(0.32, 0.60, 1, 0) } )
+	msg.post("main:/background", "set_background", { color = vmath.vector4(0.32, 0.60, 1, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Caresse !" })
 	msg.post("main:/score#score", "show_score")
 	self.won_level = false

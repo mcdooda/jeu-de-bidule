@@ -9,7 +9,7 @@ uniform lowp vec4 time;
 void main()
 {
 	const float width = 100.0;
-	const float speed = 50.0;
+	const float speed = 7.0;
 	float a = mod(var_texcoord0.x * shader_scale.x - var_texcoord0.y * shader_scale.y - time.x * speed, width) / width;
 	if (a < 0.5)
 	{

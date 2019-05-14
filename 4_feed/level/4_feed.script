@@ -1,5 +1,5 @@
 function init(self)
-	msg.post("main:/background", "set_color", { color = vmath.vector4(0.52, 0.30, 0.30, 0) } )
+	msg.post("main:/background", "set_background", { color = vmath.vector4(0.52, 0.30, 0.30, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Nourris !" })
 	msg.post(".", "acquire_input_focus")
 	msg.post("main:/score#score", "show_score")

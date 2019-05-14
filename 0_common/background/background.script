@@ -1,25 +1,55 @@
-local function set_color(color)
+local sprites = {
+	"#sprite-1",
+	"#sprite-main",
+	"#sprite-interlude",
+	"#sprite-game",
+}
+
+local function set_sprite(self, sprite)
+	if self.sprite == sprite then
+		return
+	end
+	
+	if self.sprite then
+		msg.post(self.sprite, "disable")
+	end
+	
+	self.sprite = sprite
+	msg.post(sprite, "enable")
+end
+
+local function set_color(self, color)
 	msg.post("@render:", "clear_color", { color = color })
-	go.set("#sprite", "color", color)
+	go.set(self.sprite, "color", color)
 end
 
 function init(self)
+	local init_color = vmath.vector4(0.6, 0.8, 0.3, 1)
+
+	msg.post("@render:", "clear_color", { color = init_color })
+	
 	local scale = go.get_scale()
 	local shader_scale = vmath.vector4(scale.x, scale.y, 0, 0)
-	go.set("#sprite", "shader_scale", shader_scale)
+	for i = 1, #sprites do
+		local sprite = sprites[i]
+		go.set(sprite, "shader_scale", shader_scale)
+		go.set(sprite, "color", init_color)
+		msg.post(sprite, "disable")
+	end
 
-	set_color(vmath.vector4(0.6, 0.8, 0.3, 1))
+	set_sprite(self, sprites[1])
 
 	self.time = 0
 end
 
 function update(self, dt)
 	self.time = self.time + dt
-	go.set("#sprite", "time", vmath.vector4(self.time, 0, 0, 0))
+	go.set(self.sprite, "time", vmath.vector4(self.time, 0, 0, 0))
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("set_color") then
-		set_color(message.color)
+	if message_id == hash("set_background") then
+		set_sprite(self, message.sprite)
+		set_color(self, message.color)
 	end
 end

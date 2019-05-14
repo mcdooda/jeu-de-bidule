@@ -14,11 +14,71 @@ components {
   }
 }
 embedded_components {
-  id: "sprite"
+  id: "sprite-main"
   type: "sprite"
   data: "tile_set: \"/0_common/background/background-atlas.atlas\"\n"
   "default_animation: \"background\"\n"
-  "material: \"/0_common/background/background.material\"\n"
+  "material: \"/0_common/background/background-3.material\"\n"
+  "blend_mode: BLEND_MODE_ALPHA\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+embedded_components {
+  id: "sprite-game"
+  type: "sprite"
+  data: "tile_set: \"/0_common/background/background-atlas.atlas\"\n"
+  "default_animation: \"background\"\n"
+  "material: \"/0_common/background/background-0.material\"\n"
+  "blend_mode: BLEND_MODE_ALPHA\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+embedded_components {
+  id: "sprite-1"
+  type: "sprite"
+  data: "tile_set: \"/0_common/background/background-atlas.atlas\"\n"
+  "default_animation: \"background\"\n"
+  "material: \"/0_common/background/background-1.material\"\n"
+  "blend_mode: BLEND_MODE_ALPHA\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+embedded_components {
+  id: "sprite-interlude"
+  type: "sprite"
+  data: "tile_set: \"/0_common/background/background-atlas.atlas\"\n"
+  "default_animation: \"background\"\n"
+  "material: \"/0_common/background/background-2.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""
   position {

@@ -17,8 +17,7 @@ local function throw_ball(self)
 end
 
 function init(self)
-	msg.post("main:/background", "set_color", { color = vmath.vector4(0.50, 0.76, 0.42, 0) })
-	msg.post("/intro#intro", "start", { text = "Joue !" })
+	msg.post("/intro#intro", "start", { text = "Joue !", sprite = "#sprite-game" })
 	msg.post("main:/score#score", "show_score")
 
 	self.won_level = false

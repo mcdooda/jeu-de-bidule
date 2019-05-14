@@ -6,7 +6,7 @@ local screen_height = settings.screen_height
 local poop_z = 0.5
 local grass_z = 0.4
 
-local num_poops = 3
+local num_poops = 6
 local poop_margin = 40
 
 local move_duration = 0.4
@@ -74,7 +74,7 @@ local function spawn_grass(self)
 end
 
 function init(self)
-	msg.post("main:/background", "set_color", { color = vmath.vector4(0.32, 0.60, 0.32, 0) } )
+	msg.post("main:/background", "set_background", { color = vmath.vector4(0.32, 0.60, 0.32, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Ramasse !" })
 	msg.post("main:/score#score", "show_score")
 	plan_introduction(self)
@@ -87,7 +87,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
-		msg.post("timer", "start", { duration = 3 })
+		msg.post("timer", "start", { duration = 5 })
 	elseif message_id == hash("add_score") then
 		self.score = self.score + 1
 		self.poops[message.poop_hash] = nil
