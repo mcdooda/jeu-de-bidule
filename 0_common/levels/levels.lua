@@ -5,5 +5,6 @@ return {
 	--"playball",
 	"feed",
 	"clean",
+	"chase",
 	"throw",
 }

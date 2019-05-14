@@ -3,6 +3,6 @@ function init(self)
 
 	msg.post("@render:", "use_fixed_fit_projection")
 	
-	--msg.post("/loader#loader", "load_level", { level_name = "clean" })
-	msg.post("/loader#loader", "load_first_level")
+	msg.post("/loader#loader", "load_level", { level_name = "chase" })
+	--msg.post("/loader#loader", "load_first_level")
 end

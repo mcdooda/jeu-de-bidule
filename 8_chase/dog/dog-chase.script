@@ -1,0 +1,18 @@
+function init(self)
+	
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") then
+		msg.post(message.other_id, "flee", { position = go.get_position() })
+	elseif message_id == hash("set_position") then
+		local dog_z = go.get_position().z
+		local position = vmath.vector3(message.x, message.y, dog_z)
+		go.set_position(position)
+	end
+end

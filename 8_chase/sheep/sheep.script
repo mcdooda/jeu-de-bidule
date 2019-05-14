@@ -1,0 +1,58 @@
+local function start_move(self, direction)
+	self.direction = direction
+	sprite.play_flipbook("#sprite", "move")
+	sprite.set_hflip("#sprite", direction.x < 0)
+end
+
+local function stop_move(self)
+	self.direction = nil
+	sprite.play_flipbook("#sprite", "sheep-1")
+end
+
+function init(self)
+	msg.post("enclosure", "add_sheep")
+	
+	self.direction = nil
+	self.correction = vmath.vector3()
+	self.entered_enclosure = false
+end
+
+function update(self, dt)
+	if self.direction then
+		local speed = 100
+		local position = go.get_position()
+		position = position + self.direction * dt * speed
+		go.set_position(position)
+	end
+	self.correction = vmath.vector3()
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("flee") then
+		if self.entered_enclosure then
+			return
+		end
+		local position = go.get_position()
+		local direction = vmath.vector3()
+		direction.x = position.x - message.position.x
+		direction.y = position.y - message.position.y
+		direction = vmath.normalize(direction)
+		start_move(self, direction)
+	elseif message_id == hash("contact_point_response") then
+		if message.distance > 0 then
+			local proj = vmath.project(self.correction, message.normal * message.distance)
+			if proj < 1 then
+				local comp = (message.distance - message.distance * proj) * message.normal
+				go.set_position(go.get_position() + comp)
+				self.correction = self.correction + comp
+			end
+		end
+	elseif message_id == hash("enter_enclosure") then
+		if self.entered_enclosure then
+			return
+		end
+		self.entered_enclosure = true
+		stop_move(self)
+		msg.post(sender, "add_sheep_inside")
+	end
+end
