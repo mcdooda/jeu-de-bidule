@@ -27,4 +27,5 @@ default_texture_mag_filter = nearest
 
 [html5]
 cssfile = /html/style.css
+htmlfile = /html/engine_template.html
 

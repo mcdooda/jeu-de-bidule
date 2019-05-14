@@ -6,18 +6,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>{{project.title}}</title>
+	<title>{{project.title}} {{project.version}}</title>
 	<style>
 	html {
 		margin: 0;
 		padding: 0;
-		overflow: hidden;
 	}
 
 	/* Disable user selection to avoid strange bug in Chrome on Windows:
 	* Selecting a text outside the canvas, then clicking+draging would
 	* drag the selected text but block mouse down/up events to the engine.
-	*/	
+	*/
 	body {
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -27,13 +26,30 @@
 		user-select: none;
 		margin: 0;
 		padding: 0;
-		background-color: #84ccff;
+		background-color: #ccbfb5;
+	}
+
+	/* DEF-3413
+	* The Facebook container will be populated with the Facebook SDK content
+	* when a Facebook App Id is provided in game.project.
+	* This caused problems with selections in Chrome on Windows, just like
+	* above. Explicitly disabling selection on the root div fixes the issue.
+	*/
+	.fb-root {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
 
 	.canvas-app-container {
-		/* A positioned parent for loading visuals */
-		position: relative;
-		text-align: center;
+		width: {{display.width}}px;
+		max-height: 100vh;
+		max-width: 100%;
+		margin: 0 auto;
+		padding: 0;
 	}
 
 	.canvas-app-container:-webkit-full-screen {
@@ -43,22 +59,22 @@
 	}
 
 	.canvas-app-canvas {
-		max-height: 100vh;
-		max-width: 100%;
+		height: 100%;
+		width: 100%;
 	}
 
 	.canvas-app-progress {
 		position: absolute;
 		background-color: rgb(245, 245, 245);
-		height: 20px;
+		height: 5px;
 		/* Progress same width as canvas. */
 		width: {{display.width}}px;
 		bottom: 0px;
 	}
 
 	.canvas-app-progress-bar {
-		font-size: 12px;
-		height: 20px;
+		font-size: 5px;
+		height: 5px;
 		color: rgb(255, 255, 255);
 		background-color: rgb(30, 100, 234);
 		text-align: center;
@@ -77,9 +93,13 @@
 </head>
 
 <body>
+	<div id="fb-root" class="fb-root"></div>
+
 	<div id="app-container" class="canvas-app-container">
 		<canvas id="canvas" class="canvas-app-canvas" tabindex="1" width="{{display.width}}" height="{{display.height}}"></canvas>
 	</div>
+
+	<!--<button id="fullscreen" class="button">Fullscreen</button>-->
 
 	<!-- -->
 	{{{DEFOLD_DEV_INLINE}}}
@@ -91,9 +111,7 @@
 		archive_location_filter: function( path ) {
 			return ("{{DEFOLD_ARCHIVE_LOCATION_PREFIX}}" + path + "{{DEFOLD_ARCHIVE_LOCATION_SUFFIX}}");
 		},
-		{{#HAS_DEFOLD_ENGINE_ARGUMENTS}}
-		engine_arguments: ["{{DEFOLD_ENGINE_ARGUMENTS}}"],
-		{{/HAS_DEFOLD_ENGINE_ARGUMENTS}}
+		engine_arguments: [{{#DEFOLD_ENGINE_ARGUMENTS}}"{{.}}",{{/DEFOLD_ENGINE_ARGUMENTS}}],
 		splash_image: "{{DEFOLD_SPLASH_IMAGE}}",
 		custom_heap_size: {{DEFOLD_HEAP_SIZE}},
 		disable_context_menu: true
@@ -123,8 +141,24 @@
 		}
 		document.head.appendChild(engineJS);
 	}
-	
-	load_engine();
+
+	/* Fullscreen button */
+	/*
+	document.getElementById("fullscreen").onclick = function (e) {
+		Module.toggleFullscreen();
+	};
+	*/
+
+	if ({{DEFOLD_HAS_FACEBOOK_APP_ID}}) {
+		// Load Facebook API
+		var fb = document.createElement('script');
+		fb.type = 'text/javascript';
+		fb.src = '//connect.facebook.net/en_US/sdk.js';
+		fb.onload = load_engine;
+		document.head.appendChild(fb);
+	} else {
+		load_engine();
+	}
 	</script>
 </body>
 </html>
