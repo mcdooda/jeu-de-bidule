@@ -1,0 +1,25 @@
+local function set_color(color)
+	msg.post("@render:", "clear_color", { color = color })
+	go.set("#sprite", "color", color)
+end
+
+function init(self)
+	local scale = go.get_scale()
+	local shader_scale = vmath.vector4(scale.x, scale.y, 0, 0)
+	go.set("#sprite", "shader_scale", shader_scale)
+
+	set_color(vmath.vector4(0.6, 0.8, 0.3, 1))
+
+	self.time = 0
+end
+
+function update(self, dt)
+	self.time = self.time + dt
+	go.set("#sprite", "time", vmath.vector4(self.time, 0, 0, 0))
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("set_color") then
+		set_color(message.color)
+	end
+end

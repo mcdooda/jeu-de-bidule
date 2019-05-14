@@ -74,7 +74,7 @@ local function spawn_grass(self)
 end
 
 function init(self)
-	msg.post("@render:", "clear_color", { color = vmath.vector4(0.32, 0.60, 0.32, 0) } )
+	msg.post("main:/background", "set_color", { color = vmath.vector4(0.32, 0.60, 0.32, 0) } )
 	msg.post("/intro#intro", "start", { text = "Ramasse !" })
 	msg.post("main:/score#score", "show_score")
 	plan_introduction(self)

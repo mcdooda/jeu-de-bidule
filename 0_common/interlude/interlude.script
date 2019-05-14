@@ -27,7 +27,7 @@ local function spawn_path_points(self)
 end
 
 local function resume_interlude(self, won_level)
-	msg.post("@render:", "clear_color", { color = vmath.vector4(0.50, 0.76, 0.42, 0) })
+	msg.post("main:/background", "set_color", { color = vmath.vector4(0.50, 0.76, 0.42, 0) })
 	if won_level then
 		self.current_point_index = self.current_point_index + 1
 		local new_dog_position = get_dog_position(self.current_point_index)
