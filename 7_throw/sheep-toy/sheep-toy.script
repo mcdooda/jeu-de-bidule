@@ -1,0 +1,15 @@
+function init(self)
+	self.init_scale = go.get_scale().x
+	self.init_y = go.get_position().y
+end
+
+local function remap(value, low1, high1, low2, high2)
+	return low2 + (value - low1) * (high2 - low2) / (high1 - low1)
+end
+
+function update(self, dt)
+	local scale_0_y = 640 * 2;
+	local y = go.get_position().y
+	local scale = remap(y, self.init_y, scale_0_y, self.init_scale, 0)
+	go.set_scale(scale)
+end

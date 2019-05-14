@@ -1,8 +1,9 @@
 return {
 	"main",
 	"pet",
-	"playball",
+	"pickup",
+	--"playball",
 	"feed",
 	"clean",
-	"pickup",
+	"throw",
 }

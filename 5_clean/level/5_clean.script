@@ -77,7 +77,7 @@ function on_message(self, message_id, message, sender)
 			spawn_sparkes(self)
 			msg.post("main:/score#score", "add_score")
 		else
-			msg.post("robot-vacuum", "stop_move")
+			msg.post("robot-vacuum", "stop_move_smoke")
 		end
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then

@@ -7,9 +7,9 @@ local function resume_interlude(self, won_level)
 	self.time = 0
 	local node = gui.get_node("won-text")
 	if won_level then
-		set_won_text("Gagné :)")
+		set_won_text("Gagné !")
 	elseif won_level == false then
-		set_won_text("Perdu :(")
+		set_won_text("Perdu...")
 	end
 end
 

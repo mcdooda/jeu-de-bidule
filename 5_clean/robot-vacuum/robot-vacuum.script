@@ -22,8 +22,10 @@ function on_message(self, message_id, message, sender)
 			local rotation = vmath.quat_rotation_z(angle)
 			go.set_rotation(rotation)
 		end
-	elseif message_id == hash("stop_move") then
+	elseif message_id == hash("stop_move_smoke") then
 		self.direction = nil
 		particlefx.play("#smoke")
+	elseif message_id == hash("stop_move") then
+		self.direction = nil
 	end
 end
