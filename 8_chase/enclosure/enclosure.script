@@ -1,15 +1,5 @@
-function init(self)
-	self.num_sheeps = 0
-	self.num_sheeps_inside = 0
-end
-
 function on_message(self, message_id, message, sender)
-	if message_id == hash("add_sheep") then
-		self.num_sheeps = self.num_sheeps + 1
-	elseif message_id == hash("add_sheep_inside") then
-		self.num_sheeps_inside = self.num_sheeps_inside + 1
-		print(self.num_sheeps_inside, "/", self.num_sheeps)
-	elseif message_id == hash("trigger_response") then
+	if message_id == hash("trigger_response") then
 		msg.post(message.other_id, "enter_enclosure")
 	end
 end

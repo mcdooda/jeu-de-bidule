@@ -1,4 +1,10 @@
 local function start_move(self, direction)
+	if self.entered_enclosure then
+		if direction.y < 0 then
+			direction.y = 0
+			direction = vmath.normalize(direction)
+		end
+	end
 	self.direction = direction
 	sprite.play_flipbook("#sprite", "move")
 	sprite.set_hflip("#sprite", direction.x < 0)
@@ -10,7 +16,7 @@ local function stop_move(self)
 end
 
 function init(self)
-	msg.post("enclosure", "add_sheep")
+	msg.post("8_chase", "add_sheep")
 	
 	self.direction = nil
 	self.correction = vmath.vector3()
@@ -46,13 +52,22 @@ function on_message(self, message_id, message, sender)
 				go.set_position(go.get_position() + comp)
 				self.correction = self.correction + comp
 			end
+			if self.direction then
+				-- move in the same direction along the obstacle
+				local direction = vmath.normalize(vmath.cross(message.normal, vmath.normalize(vmath.cross(self.direction, message.normal))))
+				if direction.x ~= direction.x then
+					stop_move(self)
+				else
+					start_move(self, direction)
+				end
+			end
 		end
 	elseif message_id == hash("enter_enclosure") then
 		if self.entered_enclosure then
 			return
 		end
 		self.entered_enclosure = true
-		stop_move(self)
-		msg.post(sender, "add_sheep_inside")
+		start_move(self, vmath.vector3(0, 1, 0))
+		msg.post("8_chase", "add_sheep_inside")
 	end
 end

@@ -1,5 +1,5 @@
 function init(self)
-	
+	self.running = false
 end
 
 function update(self, dt)
@@ -11,8 +11,18 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") then
 		msg.post(message.other_id, "flee", { position = go.get_position() })
 	elseif message_id == hash("set_position") then
-		local dog_z = go.get_position().z
-		local position = vmath.vector3(message.x, message.y, dog_z)
+		local previous_position = go.get_position()
+		local position = vmath.vector3(message.x, message.y, previous_position.z)
 		go.set_position(position)
+		sprite.set_hflip("#sprite", position.x < previous_position.x)
+		if message.move then
+			if not self.running then
+				self.running = true
+				sprite.play_flipbook("#sprite", "run")
+			end
+		else
+			self.running = false
+			sprite.play_flipbook("#sprite", "idle")
+		end
 	end
 end
