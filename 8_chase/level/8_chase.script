@@ -4,10 +4,10 @@ function init(self)
 	msg.post("main:/score#score", "show_score")
 
 	self.won_level = false
-	self.num_sheeps = 0
+	self.sheeps = {}
 	self.num_sheeps_inside = 0
 
-	msg.post("@system:", "toggle_physics_debug")
+	--msg.post("@system:", "toggle_physics_debug")
 end
 
 function on_message(self, message_id, message, sender)
@@ -15,15 +15,24 @@ function on_message(self, message_id, message, sender)
 		msg.post(".", "acquire_input_focus")
 		msg.post("timer", "start", { duration = 10 })
 	elseif message_id == hash("add_sheep") then
-		self.num_sheeps = self.num_sheeps + 1
+		self.sheeps[#self.sheeps + 1] = sender
 	elseif message_id == hash("add_sheep_inside") then
 		self.num_sheeps_inside = self.num_sheeps_inside + 1
-		if self.num_sheeps_inside >= self.num_sheeps then
+		if self.num_sheeps_inside >= #self.sheeps then
 			self.won_level = true
+			msg.post("main:/score#score", "add_score")
 		end
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
-		
+		local end_message_id = "lost_level"
+		if self.won_level then
+			end_message_id = "won_level"
+		end
+		msg.post("dog-chase", end_message_id)
+		for i = 1, #self.sheeps do
+			local sheep = self.sheeps[i]
+			msg.post(sheep, end_message_id)
+		end
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
 		msg.post("main:/loader#loader", "level_finished", { won_level = self.won_level })

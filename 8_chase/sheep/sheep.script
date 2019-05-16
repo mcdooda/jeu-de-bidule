@@ -5,8 +5,10 @@ local function start_move(self, direction)
 			direction = vmath.normalize(direction)
 		end
 	end
+	if not self.direction then
+		sprite.play_flipbook("#sprite", "move")
+	end
 	self.direction = direction
-	sprite.play_flipbook("#sprite", "move")
 	sprite.set_hflip("#sprite", direction.x < 0)
 end
 
@@ -21,10 +23,11 @@ function init(self)
 	self.direction = nil
 	self.correction = vmath.vector3()
 	self.entered_enclosure = false
+	self.lost_level = false
 end
 
 function update(self, dt)
-	if self.direction then
+	if self.direction and not self.level_lost then
 		local speed = 100
 		local position = go.get_position()
 		position = position + self.direction * dt * speed
@@ -52,7 +55,7 @@ function on_message(self, message_id, message, sender)
 				go.set_position(go.get_position() + comp)
 				self.correction = self.correction + comp
 			end
-			if self.direction then
+			if self.direction and message.other_id == hash("default") then
 				-- move in the same direction along the obstacle
 				local direction = vmath.normalize(vmath.cross(message.normal, vmath.normalize(vmath.cross(self.direction, message.normal))))
 				if direction.x ~= direction.x then
@@ -69,5 +72,15 @@ function on_message(self, message_id, message, sender)
 		self.entered_enclosure = true
 		start_move(self, vmath.vector3(0, 1, 0))
 		msg.post("8_chase", "add_sheep_inside")
+	elseif message_id == hash("won_level") then
+		stop_move(self)
+	elseif message_id == hash("lost_level") then
+		if not self.entered_enclosure then
+			local dog_position = go.get_position("dog-chase")
+			local move_direction = dog_position - go.get_position()
+			move_direction.z = 0
+			move_direction = vmath.normalize(move_direction)
+			start_move(self, move_direction)
+		end
 	end
 end

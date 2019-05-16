@@ -1,5 +1,5 @@
 embedded_components {
-  id: "collisionobject"
+  id: "collision"
   type: "collisionobject"
   data: "collision_shape: \"\"\n"
   "type: COLLISION_OBJECT_TYPE_STATIC\n"
@@ -7,7 +7,6 @@ embedded_components {
   "friction: 0.1\n"
   "restitution: 0.5\n"
   "group: \"default\"\n"
-  "mask: \"default\"\n"
   "mask: \"sheep\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
