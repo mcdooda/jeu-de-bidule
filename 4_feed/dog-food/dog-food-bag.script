@@ -10,7 +10,7 @@ function init(self)
 	move_to_position.x = screen_width - position.x
 	move_to_position.y = position.y
 	move_to_position.z = position.z
-	go.animate("dog-food-bag", "position", go.PLAYBACK_LOOP_PINGPONG, move_to_position, go.EASING_INOUTCUBIC, 2)
+	go.animate("dog-food-bag", "position", go.PLAYBACK_LOOP_PINGPONG, move_to_position, go.EASING_INOUTCUBIC, 2, math.random() * 1.5)
 end
 
 local function spawn_food(self, handle, time_elapsed)

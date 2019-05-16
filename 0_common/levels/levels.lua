@@ -1,10 +1,10 @@
 return {
 	"main",
-	"pet",
 	"pickup",
-	--"playball",
 	"feed",
+	"pet",
 	"clean",
 	"chase",
 	"throw",
+	--"playball",
 }
