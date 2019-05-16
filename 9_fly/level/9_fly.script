@@ -5,7 +5,7 @@ local screen_height = settings.screen_height
 
 local num_walls = 3
 local delay_between_walls = 1.5
-local walls_speed = 300
+local walls_speed = 250
 local margin = 100
 local walls_move_distance = screen_width + margin * 2
 local walls_move_duration = walls_move_distance / walls_speed

@@ -22,15 +22,15 @@ embedded_components {
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""
   position {
-    x: 16.0
-    y: 11.0
+    x: 0.0
+    y: 0.0
     z: 0.0
   }
   rotation {
     x: 0.0
     y: 0.0
-    z: 0.5974727
-    w: 0.80188924
+    z: 0.0
+    w: 1.0
   }
 }
 embedded_components {
