@@ -1,15 +1,30 @@
+local settings = require("0_common.modules.settings")
+
+local screen_height = settings.screen_height
+
 local max_speed = 700
-local up_speed = 400
+local up_speed = 300
 local weight = 500
 
 local function remap(value, low1, high1, low2, high2)
 	return low2 + (value - low1) * (high2 - low2) / (high1 - low1)
 end
 
+local function stop(self)
+	if not self.stopped then
+		self.stopped = true
+		msg.post(".", "release_input_focus")
+		msg.post("9_fly", "stop")
+		msg.post("#kinematic-collision", "disable")
+	end
+end
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
 	self.speed_y = 0
+	self.angle = 0
+	self.stopped = false
 end
 
 function update(self, dt)
@@ -21,18 +36,34 @@ function update(self, dt)
 		self.speed_y = -max_speed
 	end
 
-	local angle = remap(self.speed_y, -max_speed, max_speed, -math.pi / 4, math.pi / 4)
-	local rotation = vmath.quat_rotation_z(angle)
+	if self.stopped then
+		local rotation_speed = math.pi * 5
+		self.angle = self.angle + dt * rotation_speed
+	else
+		self.angle = remap(self.speed_y, -max_speed, max_speed, -math.pi / 4, math.pi / 4)
+	end
+	local rotation = vmath.quat_rotation_z(self.angle)
 	go.set_rotation(rotation)
 	
 	local position = go.get_position()
 	position.y = position.y + self.speed_y * dt
 	go.set_position(position)
+
+	if not self.stopped and (position.y < 0 or position.y > screen_height) then
+		stop(self)
+	end
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("start") then
 		self.started = true
+	elseif message_id == hash("won_level") then
+		self.started = false
+		local animation_duration = 2
+		go.animate("#sprite", "scale", go.PLAYBACK_ONCE_FORWARD, 10, go.EASING_OUTBACK, animation_duration)
+		go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, screen_height / 2, go.EASING_OUTBACK, animation_duration)
+	elseif message_id == hash("collision_response") then
+		stop(self)
 	end
 end
 

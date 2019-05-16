@@ -23,7 +23,7 @@ embedded_components {
   ""
   position {
     x: 5.0
-    y: 1.0
+    y: -1.0
     z: 0.0
   }
   rotation {
@@ -34,7 +34,7 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "collisionobject"
+  id: "kinematic-collision"
   type: "collisionobject"
   data: "collision_shape: \"\"\n"
   "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
@@ -48,7 +48,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 0.0\n"
-  "      y: 2.0\n"
+  "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -60,9 +60,43 @@ embedded_components {
   "    index: 0\n"
   "    count: 3\n"
   "  }\n"
-  "  data: 33.0\n"
+  "  shapes {\n"
+  "    shape_type: TYPE_SPHERE\n"
+  "    position {\n"
+  "      x: 17.0\n"
+  "      y: 0.0\n"
+  "      z: 0.0\n"
+  "    }\n"
+  "    rotation {\n"
+  "      x: 0.0\n"
+  "      y: 0.0\n"
+  "      z: 0.0\n"
+  "      w: 1.0\n"
+  "    }\n"
+  "    index: 3\n"
+  "    count: 1\n"
+  "  }\n"
+  "  shapes {\n"
+  "    shape_type: TYPE_SPHERE\n"
+  "    position {\n"
+  "      x: -17.0\n"
+  "      y: 0.0\n"
+  "      z: 0.0\n"
+  "    }\n"
+  "    rotation {\n"
+  "      x: 0.0\n"
+  "      y: 0.0\n"
+  "      z: 0.0\n"
+  "      w: 1.0\n"
+  "    }\n"
+  "    index: 4\n"
+  "    count: 1\n"
+  "  }\n"
+  "  data: 17.0\n"
   "  data: 16.0\n"
   "  data: 10.0\n"
+  "  data: 16.0\n"
+  "  data: 16.0\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"
