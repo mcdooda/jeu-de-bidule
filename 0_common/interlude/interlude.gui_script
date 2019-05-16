@@ -19,11 +19,13 @@ end
 
 local function start_interlude(self)
 	set_won_text(self.default_text)
+	gui.set_enabled(gui.get_node("won-golden-food-text"), false)
 end
 
 function init(self)
 	local node = gui.get_node("won-text")
 	self.default_text = gui.get_text(node)
+	self.golden_food_reached = false
 	start_interlude(self)
 end
 
@@ -31,7 +33,7 @@ function update(self, dt)
 	-- Add update code here
 	-- Remove this function if not needed
 	self.time = self.time + dt
-	if self.time > 3 then
+	if not self.golden_food_reached and self.time > 3 then
 		finish_interlude(self)
 		msg.post("main:/loader#loader", "interlude_finished")
 	end
@@ -42,5 +44,9 @@ function on_message(self, message_id, message, sender)
 		start_interlude(self)
 	elseif message_id == hash("resume") then
 		resume_interlude(self, message.won_level)
+	elseif message_id == hash("golden_food_reached") then
+		self.golden_food_reached = true
+	elseif message_id == hash("golden_food_zoom") then
+		gui.set_enabled(gui.get_node("won-golden-food-text"), true)
 	end
 end

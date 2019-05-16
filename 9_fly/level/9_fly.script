@@ -5,7 +5,7 @@ local screen_height = settings.screen_height
 
 local num_walls = 3
 local delay_between_walls = 1.5
-local walls_speed = 250
+local walls_speed = 200
 local margin = 100
 local walls_move_distance = screen_width + margin * 2
 local walls_move_duration = walls_move_distance / walls_speed
@@ -46,8 +46,6 @@ function init(self)
 	msg.post("main:/score#score", "show_score")
 
 	self.won_level = true
-
-	--msg.post("@system:", "toggle_physics_debug")
 end
 
 function on_message(self, message_id, message, sender)

@@ -59,4 +59,24 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "dog-food-golden"
+  prototype: "/0_common/interlude/dog-food-golden/dog-food-golden.go"
+  position {
+    x: 382.0
+    y: 340.0
+    z: 0.25
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 1.0
+  }
+}
 scale_along_z: 0

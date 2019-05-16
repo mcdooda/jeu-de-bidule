@@ -1,5 +1,6 @@
 return {
 	"main",
+	
 	"pickup",
 	"feed",
 	"pet",
@@ -7,5 +8,6 @@ return {
 	"chase",
 	"throw",
 	"fly",
+	
 	--"playball",
 }

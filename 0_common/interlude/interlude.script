@@ -1,4 +1,8 @@
 local levels = require("0_common.levels.levels")
+local settings = require("0_common.modules.settings")
+
+local screen_width = settings.screen_width
+local screen_height = settings.screen_height
 
 local function get_path_point_position(index)
 	local path_position = go.get_position("path")
@@ -26,6 +30,14 @@ local function spawn_path_points(self)
 	end
 end
 
+local function win_golden_food(self)
+	local position = vmath.vector3(screen_width / 2, screen_height / 4, 0.7)
+	go.animate("dog-food-golden", "position", go.PLAYBACK_ONCE_FORWARD, position, go.EASING_INOUTBACK, 1)
+	go.animate("dog-food-golden#sprite", "scale", go.PLAYBACK_ONCE_FORWARD,5, go.EASING_INOUTBACK, 1, 0, function()
+		msg.post(".", "golden_food_zoom")
+	end)
+end
+
 local function resume_interlude(self, won_level)
 	local won_color = vmath.vector4(0.50, 0.76, 0.42, 0)
 	local lost_color = vmath.vector4(0.76, 0.50, 0.42, 0)
@@ -38,11 +50,17 @@ local function resume_interlude(self, won_level)
 	msg.post("main:/background", "set_background", { color = color, sprite = "#sprite-interlude" })
 	if won_level then
 		self.current_point_index = self.current_point_index + 1
+		if self.current_point_index == #levels then
+			msg.post(".", "golden_food_reached")
+		end
 		local new_dog_position = get_dog_position(self.current_point_index)
 		timer.delay(1, false, function()
 			sprite.play_flipbook("dog-interlude#sprite", "run")
 			go.animate("dog-interlude", "position", go.PLAYBACK_ONCE_FORWARD, new_dog_position, go.EASING_LINEAR, 1, 0, function()
 				sprite.play_flipbook("dog-interlude#sprite", "sit")
+				if self.current_point_index == #levels then
+					win_golden_food(self)
+				end
 			end)
 		end)
 	end
