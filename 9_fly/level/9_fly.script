@@ -1,0 +1,23 @@
+function init(self)
+	msg.post("main:/background", "set_background", { color = vmath.vector4(0.4, 0.74, 1.0, 0), sprite = "#sprite-game" } )
+	msg.post("/intro#intro", "start", { text = "Vole !" })
+	msg.post("main:/score#score", "show_score")
+
+	self.won_level = false
+
+	--msg.post("@system:", "toggle_physics_debug")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("intro_end") then
+		msg.post(".", "acquire_input_focus")
+		msg.post("timer", "start", { duration = 60 })
+		msg.post("dog-fly", "start")
+	elseif message_id == hash("timer_end") then
+		msg.post(".", "release_input_focus")
+		
+		msg.post("outro", "start")
+	elseif message_id == hash("outro_end") then
+		msg.post("main:/loader#loader", "level_finished", { won_level = self.won_level })
+	end
+end

@@ -6,5 +6,6 @@ return {
 	"clean",
 	"chase",
 	"throw",
+	"fly",
 	--"playball",
 }

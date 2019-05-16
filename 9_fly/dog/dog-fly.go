@@ -1,6 +1,6 @@
 components {
-  id: "sheep"
-  component: "/8_chase/sheep/sheep.script"
+  id: "dog-fly"
+  component: "/9_fly/dog/dog-fly.script"
   position {
     x: 0.0
     y: 0.0
@@ -16,52 +16,53 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "tile_set: \"/0_common/assets/sheep/sheep-atlas.atlas\"\n"
-  "default_animation: \"sheep-1\"\n"
+  data: "tile_set: \"/0_common/assets/dog/dog-atlas.atlas\"\n"
+  "default_animation: \"fly\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""
   position {
-    x: 16.0
-    y: 11.0
+    x: 5.0
+    y: 1.0
     z: 0.0
   }
   rotation {
     x: 0.0
     y: 0.0
-    z: 0.5974727
-    w: 0.80188924
+    z: 0.0
+    w: 1.0
   }
 }
 embedded_components {
-  id: "collision"
+  id: "collisionobject"
   type: "collisionobject"
   data: "collision_shape: \"\"\n"
   "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"sheep\"\n"
+  "group: \"default\"\n"
   "mask: \"default\"\n"
-  "mask: \"sheep\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
-  "    shape_type: TYPE_SPHERE\n"
+  "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 0.0\n"
-  "      y: 0.0\n"
+  "      y: 2.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
   "      x: 0.0\n"
   "      y: 0.0\n"
-  "      z: 0.725274\n"
-  "      w: 0.6884603\n"
+  "      z: 0.0\n"
+  "      w: 1.0\n"
   "    }\n"
   "    index: 0\n"
-  "    count: 1\n"
+  "    count: 3\n"
   "  }\n"
-  "  data: 23.485\n"
+  "  data: 33.0\n"
+  "  data: 16.0\n"
+  "  data: 10.0\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"

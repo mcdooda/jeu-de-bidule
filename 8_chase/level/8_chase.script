@@ -6,8 +6,6 @@ function init(self)
 	self.won_level = false
 	self.sheeps = {}
 	self.num_sheeps_inside = 0
-
-	--msg.post("@system:", "toggle_physics_debug")
 end
 
 function on_message(self, message_id, message, sender)
