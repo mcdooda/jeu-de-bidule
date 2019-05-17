@@ -3,6 +3,7 @@ return {
 	
 	"pickup",
 	"feed",
+	"find",
 	"pet",
 	"clean",
 	"chase",

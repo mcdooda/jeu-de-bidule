@@ -1,0 +1,48 @@
+local settings = require("00_common.modules.settings")
+
+local screen_width = settings.screen_width
+local screen_height = settings.screen_height
+
+local num_color_swaps = 10
+
+local function spawn_color_swaps(self)
+	for i = 1, num_color_swaps do
+		local position = vmath.vector3()
+		position.x = math.random(screen_width / 5, screen_width * 4 / 5)
+		position.y = math.random(screen_height * 2 / 5, screen_height * 4 / 5)
+		position.z = 1.0 - (position.y / screen_height)
+		factory.create("#dog-color-swap-factory", position)
+	end
+end
+
+local function spawn_real_dog(self)
+	local position = vmath.vector3()
+	position.x = math.random(screen_width / 5, screen_width * 4 / 5)
+	position.y = math.random(screen_height * 2 / 5, screen_height * 4 / 5)
+	position.z = 1.0 - (position.y / screen_height)
+	factory.create("#dog-find-factory", position)
+end
+
+function init(self)
+	msg.post("main:/background", "set_background", { color = vmath.vector4(0.4, 1.0, 0.74, 0), sprite = "#sprite-game" } )
+	msg.post("/intro#intro", "start", { text = "Trouve !" })
+	msg.post("main:/score#score", "show_score")
+
+	spawn_color_swaps(self)
+	spawn_real_dog(self)
+
+	self.won_level = true
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("intro_end") then
+		msg.post(".", "acquire_input_focus")
+		msg.post("timer", "start", { duration = 10 })
+	elseif message_id == hash("timer_end") then
+		msg.post(".", "release_input_focus")
+
+		msg.post("outro", "start")
+	elseif message_id == hash("outro_end") then
+		msg.post("main:/loader#loader", "level_finished", { won_level = self.won_level })
+	end
+end

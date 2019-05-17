@@ -1,0 +1,81 @@
+animations {
+  id: "color-swap-1"
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-1-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-1-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "color-swap-2"
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-2-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-2-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "color-swap-3"
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-3-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-3-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "color-swap-4"
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-4-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-4-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "color-swap-5"
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-5-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-5-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "color-swap-6"
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-6-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-6-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0
