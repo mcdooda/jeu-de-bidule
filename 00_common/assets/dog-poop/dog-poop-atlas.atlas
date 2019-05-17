@@ -1,0 +1,19 @@
+images {
+  image: "/00_common/assets/dog-poop/dog-poop.png"
+}
+animations {
+  id: "dog-poop-flies"
+  images {
+    image: "/00_common/assets/dog-poop/dog-poop-flies-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-poop/dog-poop-flies-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0

@@ -1,0 +1,22 @@
+images {
+  image: "/00_common/assets/sheep/sheep-1.png"
+}
+animations {
+  id: "move"
+  images {
+    image: "/00_common/assets/sheep/sheep-1.png"
+  }
+  images {
+    image: "/00_common/assets/sheep/sheep-2.png"
+  }
+  images {
+    image: "/00_common/assets/sheep/sheep-3.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0

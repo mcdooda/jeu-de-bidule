@@ -1,0 +1,6 @@
+images {
+  image: "/00_common/assets/hand/hand.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0

@@ -1,0 +1,30 @@
+local settings = require("00_common.modules.settings")
+
+local screen_width = settings.screen_width
+
+function init(self)
+	self.timer = nil
+	
+	local position = go.get_position(".")
+	local move_to_position = vmath.vector3()
+	move_to_position.x = screen_width - position.x
+	move_to_position.y = position.y
+	move_to_position.z = position.z
+	go.animate("dog-food-bag", "position", go.PLAYBACK_LOOP_PINGPONG, move_to_position, go.EASING_INOUTCUBIC, 2, math.random() * 1.5)
+end
+
+local function spawn_food(self, handle, time_elapsed)
+	local position = go.get_position(".")
+	position.y = position.y - 130
+	factory.create("#food-factory", position)
+	msg.post("4_feed", "food_spawned")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("start_spawn_food") then
+		self.timer = timer.delay(0.05, true, spawn_food)
+	elseif message_id == hash("stop_spawn_food") then
+		timer.cancel(self.timer)
+		self.timer = nil
+	end
+end

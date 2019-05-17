@@ -1,0 +1,282 @@
+name: "1_main"
+instances {
+  id: "main"
+  prototype: "/01_main/level/1_main.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 225.0
+    y: 188.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.29992965
+    w: 0.9539613
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog1"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 373.0
+    y: 386.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0585436
+    w: 0.9982848
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog2"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 109.0
+    y: 204.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.24785255
+    w: 0.96879774
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog3"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 63.0
+    y: 336.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.52726406
+    w: 0.84970146
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog4"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 147.0
+    y: 561.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.8771372
+    w: 0.48023987
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog5"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 299.0
+    y: 510.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.44565228
+    w: 0.89520615
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog6"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 234.0
+    y: 110.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.7492676
+    w: 0.6622673
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog7"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 368.0
+    y: 225.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.46511054
+    w: 0.8852526
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog8"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 118.0
+    y: 126.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.28774703
+    w: 0.95770645
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog9"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 218.0
+    y: 375.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.89016813
+    w: 0.4556322
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog10"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 94.0
+    y: 419.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.99914277
+    w: -0.041396562
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog11"
+  prototype: "/01_main/dog/dog-main.go"
+  position {
+    x: 291.0
+    y: 423.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -0.080347106
+    w: 0.9967669
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+collection_instances {
+  id: "walls"
+  collection: "/00_common/walls/walls.collection"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+scale_along_z: 0

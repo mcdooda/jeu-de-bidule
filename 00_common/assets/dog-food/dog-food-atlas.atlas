@@ -1,0 +1,9 @@
+images {
+  image: "/00_common/assets/dog-food/dog-food.png"
+}
+images {
+  image: "/00_common/assets/dog-food/dog-food-golden.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0

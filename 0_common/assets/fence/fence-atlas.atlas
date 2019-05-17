@@ -1,6 +1,0 @@
-images {
-  image: "/0_common/assets/fence/fence.png"
-}
-margin: 0
-extrude_borders: 0
-inner_padding: 0

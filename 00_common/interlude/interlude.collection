@@ -1,0 +1,82 @@
+name: "interlude"
+instances {
+  id: "interlude"
+  prototype: "/00_common/interlude/interlude.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "path"
+  prototype: "/00_common/interlude/path/path.go"
+  position {
+    x: 215.0
+    y: 320.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 16.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog-interlude"
+  prototype: "/00_common/interlude/dog/dog-interlude.go"
+  position {
+    x: 0.0
+    y: 320.0
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "dog-food-golden"
+  prototype: "/00_common/interlude/dog-food-golden/dog-food-golden.go"
+  position {
+    x: 382.0
+    y: 340.0
+    z: 0.25
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 1.0
+  }
+}
+scale_along_z: 0
