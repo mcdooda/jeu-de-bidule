@@ -54,7 +54,7 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "sprite-1"
+  id: "sprite-fly"
   type: "sprite"
   data: "tile_set: \"/0_common/background/background-atlas.atlas\"\n"
   "default_animation: \"background\"\n"

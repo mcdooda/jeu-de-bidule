@@ -13,6 +13,21 @@ components {
     w: 1.0
   }
 }
+components {
+  id: "dog-fly-smoke"
+  component: "/9_fly/dog/dog-fly-smoke.particlefx"
+  position {
+    x: -18.0
+    y: 0.0
+    z: -0.1
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
 embedded_components {
   id: "sprite"
   type: "sprite"

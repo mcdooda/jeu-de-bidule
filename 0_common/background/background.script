@@ -1,8 +1,8 @@
 local sprites = {
-	"#sprite-1",
 	"#sprite-main",
 	"#sprite-interlude",
 	"#sprite-game",
+	"#sprite-fly",
 }
 
 local function set_sprite(self, sprite)

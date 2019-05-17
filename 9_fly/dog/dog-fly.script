@@ -10,33 +10,54 @@ local function remap(value, low1, high1, low2, high2)
 	return low2 + (value - low1) * (high2 - low2) / (high1 - low1)
 end
 
-local function stop(self)
-	if not self.stopped then
-		self.stopped = true
+local function lost_level(self)
+	if not self.lost_level then
+		self.lost_level = true
 		msg.post(".", "release_input_focus")
 		msg.post("9_fly", "stop")
 		msg.post("#kinematic-collision", "disable")
+		particlefx.stop("#dog-fly-smoke")
 	end
+end
+
+local function won_level(self)
+	self.won_level = true
 end
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
+	particlefx.play("#dog-fly-smoke")
 
 	self.speed_y = 0
 	self.angle = 0
-	self.stopped = false
+	self.lost_level = false
+	self.won_level = false
 end
 
 function update(self, dt)
 	if not self.started then
 		return
 	end
+
+	if self.won_level then
+		local rotation_speed = math.pi * 1.5
+		self.angle = self.angle + dt * rotation_speed
+		local rotation = vmath.quat_rotation_z(self.angle)
+		go.set_rotation(rotation)
+		local position = go.get_position()
+		local speed = 500
+		position.x = position.x + math.cos(self.angle) * speed * dt
+		position.y = position.y + math.sin(self.angle) * speed * dt
+		go.set_position(position)
+		return
+	end
+
 	self.speed_y = self.speed_y - weight * dt
 	if self.speed_y < -max_speed then
 		self.speed_y = -max_speed
 	end
 
-	if self.stopped then
+	if self.lost_level then
 		local rotation_speed = math.pi * 5
 		self.angle = self.angle + dt * rotation_speed
 	else
@@ -44,13 +65,13 @@ function update(self, dt)
 	end
 	local rotation = vmath.quat_rotation_z(self.angle)
 	go.set_rotation(rotation)
-	
+
 	local position = go.get_position()
 	position.y = position.y + self.speed_y * dt
 	go.set_position(position)
 
-	if not self.stopped and (position.y < 0 or position.y > screen_height) then
-		stop(self)
+	if not self.lost_level and (position.y < 0 or position.y > screen_height) then
+		lost_level(self)
 	end
 end
 
@@ -58,12 +79,9 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("start") then
 		self.started = true
 	elseif message_id == hash("won_level") then
-		self.started = false
-		local animation_duration = 2
-		go.animate("#sprite", "scale", go.PLAYBACK_ONCE_FORWARD, 10, go.EASING_OUTBACK, animation_duration)
-		go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, screen_height / 2, go.EASING_OUTBACK, animation_duration)
+		won_level(self)
 	elseif message_id == hash("collision_response") then
-		stop(self)
+		lost_level(self)
 	end
 end
 

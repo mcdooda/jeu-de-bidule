@@ -41,7 +41,7 @@ local function spawn_walls(self)
 end
 
 function init(self)
-	msg.post("main:/background", "set_background", { color = vmath.vector4(0.4, 0.74, 1.0, 0), sprite = "#sprite-game" } )
+	msg.post("main:/background", "set_background", { color = vmath.vector4(0.4, 0.74, 1.0, 0), sprite = "#sprite-fly" } )
 	msg.post("/intro#intro", "start", { text = "Vole !" })
 	msg.post("main:/score#score", "show_score")
 
