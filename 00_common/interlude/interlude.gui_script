@@ -47,6 +47,9 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("golden_food_reached") then
 		self.golden_food_reached = true
 	elseif message_id == hash("golden_food_zoom") then
-		gui.set_enabled(gui.get_node("won-golden-food-text"), true)
+		local node = gui.get_node("won-golden-food-text")
+		gui.set_scale(node, vmath.vector3(0.01, 0.01, 0.01))
+		gui.set_enabled(node, true)
+		gui.animate(node, "scale", vmath.vector3(1, 1, 1), go.EASING_OUTBOUNCE, 0.5)
 	end
 end
