@@ -32,3 +32,6 @@ htmlfile = /html/engine_template.html
 [collection_proxy]
 max_count = 12
 
+[tracking]
+app_id = 292518F463606020
+
