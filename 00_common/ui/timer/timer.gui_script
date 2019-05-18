@@ -7,9 +7,9 @@ function init(self)
 	self.duration = 1
 	self.time = 0
 	self.sender = nil
-	local node = gui.get_node("timer")
-	self.node_original_size = gui.get_size(node)
-	gui.set_enabled(node, false)
+	local timer_node = gui.get_node("timer")
+	self.node_original_size = gui.get_size(timer_node)
+	gui.set_enabled(timer_node, false)
 end
 
 function update(self, dt)
@@ -19,20 +19,25 @@ function update(self, dt)
 	
 	self.time = self.time + dt
 
-	local node = gui.get_node("timer")
+	local timer_node = gui.get_node("timer")
 	if self.time > self.duration then
 		self.finished = true
 		msg.post(self.sender, "timer_end")
-		gui.set_enabled(node, false)
+		gui.set_enabled(timer_node, false)
 	else
+		local timer_inner_node = gui.get_node("timer-inner")
+		
 		local progression = self.time / self.duration
 		
 		local size = vmath.vector3(self.node_original_size)
 		size.x = size.x * (1 - progression)
-		gui.set_size(node, size)
+		gui.set_size(timer_node, size)
+		size.x = size.x - 2
+		size.y = size.y - 2
+		gui.set_size(timer_inner_node, size)
 
 		local color = vmath.lerp(progression, color2, color1)
-		gui.set_color(node, color)
+		gui.set_color(timer_inner_node, color)
 	end
 end
 
