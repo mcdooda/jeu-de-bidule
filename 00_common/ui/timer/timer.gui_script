@@ -48,6 +48,15 @@ function on_message(self, message_id, message, sender)
 		self.sender = sender
 		local node = gui.get_node("timer")
 		gui.set_enabled(node, true)
+	elseif message_id == hash("interrupt") then
+		self.finished = true
+		local node = gui.get_node("timer")
+		local color = gui.get_color(node)
+		color.w = 0
+		gui.animate(node, "color", color, gui.EASING_LINEAR, 0.2, 0, function()
+			gui.set_enabled(node, false)
+		end)
+		msg.post(self.sender, "timer_end")
 	end
 end
 

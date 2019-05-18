@@ -1,6 +1,6 @@
 function init(self)
-	local num_color_swaps = 4
+	local num_color_swaps = 7
 	local color_swap = math.random(1, num_color_swaps)
 	local animation_name = "color-swap-" .. tostring(color_swap)
 	sprite.play_flipbook("#sprite", animation_name)
-end
+end 

@@ -56,6 +56,7 @@ function on_message(self, message_id, message, sender)
 		spawn_walls(self)
 	elseif message_id == hash("stop") then
 		self.won_level = false
+		msg.post("timer", "interrupt")
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
 		if self.won_level then
