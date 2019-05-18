@@ -76,7 +76,6 @@ end
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.32, 0.60, 0.32, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Ramasse !" })
-	msg.post("main:/score#score", "show_score")
 	plan_introduction(self)
 	spawn_grass(self)
 
@@ -91,10 +90,13 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("add_score") then
 		self.score = self.score + 1
 		self.poops[message.poop_hash] = nil
-	elseif message_id == hash("timer_end") then
-		msg.post(".", "release_input_focus")
 		if self.score >= num_poops then
 			self.won_level = true
+			msg.post("timer", "interrupt")
+		end
+	elseif message_id == hash("timer_end") then
+		msg.post(".", "release_input_focus")
+		if self.won_level then
 			local original_dog_position = go.get_position("dog-pickup")
 			local position = vmath.vector3()
 			position.z = original_dog_position.z
@@ -104,7 +106,6 @@ function on_message(self, message_id, message, sender)
 				dog_move_to(position, win_move_duration, run_around)
 			end
 			run_around()
-			msg.post("main:/score#score", "add_score")
 		else
 			for poop_hash in pairs(self.poops) do
 				local poop_sprite_url = msg.url(nil, poop_hash, "sprite")

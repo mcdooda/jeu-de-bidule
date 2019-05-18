@@ -1,4 +1,3 @@
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.80, 0.75, 0.71, 0), sprite = "#sprite-main" } )
-	msg.post("main:/score#score", "reset_score")
 end

@@ -18,7 +18,6 @@ end
 
 function init(self)
 	msg.post("/intro#intro", "start", { text = "Joue !", sprite = "#sprite-game" })
-	msg.post("main:/score#score", "show_score")
 
 	self.won_level = false
 	self.time = 0
@@ -64,7 +63,6 @@ function on_message(self, message_id, message, sender)
 			self.won_level = true
 			destination = vmath.vector3(ball_position.x, ball_position.y, dog_z)
 			animation = hash("run")
-			msg.post("main:/score#score", "add_score")
 		else
 			destination = vmath.vector3(-50, -50, dog_z)
 			animation = hash("idle")

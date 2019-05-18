@@ -104,7 +104,7 @@ instances {
   prototype: "/08_chase/enclosure/enclosure.go"
   position {
     x: 215.0
-    y: 590.0
+    y: 615.0
     z: 0.0
   }
   rotation {

@@ -1,7 +1,6 @@
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.32, 0.60, 0.32, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Pourchasse !" })
-	msg.post("main:/score#score", "show_score")
 
 	self.won_level = false
 	self.sheeps = {}
@@ -18,7 +17,7 @@ function on_message(self, message_id, message, sender)
 		self.num_sheeps_inside = self.num_sheeps_inside + 1
 		if self.num_sheeps_inside >= #self.sheeps then
 			self.won_level = true
-			msg.post("main:/score#score", "add_score")
+			msg.post("timer", "interrupt")
 		end
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")

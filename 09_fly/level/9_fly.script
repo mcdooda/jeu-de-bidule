@@ -43,7 +43,6 @@ end
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.4, 0.74, 1.0, 0), sprite = "#sprite-fly" } )
 	msg.post("/intro#intro", "start", { text = "Vole !" })
-	msg.post("main:/score#score", "show_score")
 
 	self.won_level = true
 end
@@ -61,7 +60,6 @@ function on_message(self, message_id, message, sender)
 		msg.post(".", "release_input_focus")
 		if self.won_level then
 			msg.post("dog-fly", "won_level")
-			msg.post("main:/score#score", "add_score")
 		end
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then

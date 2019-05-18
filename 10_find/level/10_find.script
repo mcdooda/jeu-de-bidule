@@ -28,7 +28,6 @@ end
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.4, 1.0, 0.74, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Trouve !" })
-	msg.post("main:/score#score", "show_score")
 
 	self.real_dog = nil
 	self.dogs = {}

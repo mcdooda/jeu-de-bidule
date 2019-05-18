@@ -30,7 +30,6 @@ end
 
 function init(self)
 	msg.post("/intro#intro", "start", { text = "Nettoie !" })
-	msg.post("main:/score#score", "show_score")
 	spawn_fur(self)
 
 	self.won_level = false
@@ -75,7 +74,6 @@ function on_message(self, message_id, message, sender)
 			self.won_level = true
 			fade_fur(self)
 			spawn_sparkes(self)
-			msg.post("main:/score#score", "add_score")
 		else
 			msg.post("robot-vacuum", "stop_move_smoke")
 		end

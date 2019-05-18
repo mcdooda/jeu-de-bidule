@@ -13,7 +13,6 @@ end
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.32, 0.60, 1, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Caresse !" })
-	msg.post("main:/score#score", "show_score")
 	self.won_level = false
 	self.score = 0
 	self.hand_visible = true
@@ -35,7 +34,6 @@ function on_message(self, message_id, message, sender)
 		if self.score > 2.5 then
 			self.won_level = true
 			sprite.play_flipbook("dog-pet#sprite", hash("goggly-eyes"))
-			msg.post("main:/score#score", "add_score")
 		else
 			sprite.play_flipbook("dog-pet#sprite", hash("cry"))
 		end
