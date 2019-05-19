@@ -1,0 +1,12 @@
+images {
+  image: "/00_common/assets/food/crisps.png"
+}
+images {
+  image: "/00_common/assets/food/cashew-nut.png"
+}
+images {
+  image: "/00_common/assets/food/peanut-butter.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0

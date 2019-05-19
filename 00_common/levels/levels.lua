@@ -4,6 +4,7 @@ return {
 	"pickup",
 	"feed",
 	"find",
+	"watch",
 	"pet",
 	"clean",
 	"chase",

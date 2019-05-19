@@ -1,0 +1,101 @@
+local settings = require("00_common.modules.settings")
+
+local screen_width = settings.screen_width
+local screen_height = settings.screen_height
+
+local food_amount = 3
+
+local function spawn_food(self)
+	local position = vmath.vector3()
+	for i = 1, food_amount do
+		position.x = math.random(screen_width * 1 / 5, screen_width * 4 / 5)
+		position.y = math.random(screen_height * 3 / 5, screen_height * 4 / 5)
+		local food = factory.create("#food-factory", position)
+		self.food[i] = food
+		msg.post("dog-watch", "add_food", { food = food })
+	end
+end
+
+function init(self)
+	msg.post("main:/background", "set_background", { color = vmath.vector4(1.0, 1.0, 1.0, 0), sprite = "#sprite-game" } )
+	msg.post("/intro#intro", "start", { text = "Surveille !" })
+
+	self.food = {}
+	self.dragged_food = nil
+	spawn_food(self)
+
+	self.won_level = true
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("intro_end") then
+		msg.post(".", "acquire_input_focus")
+		msg.post("timer", "start", { duration = 10 })
+		msg.post("dog-watch", "start")
+	elseif message_id == hash("dog_reached_food") then
+		msg.post("timer", "interrupt")
+		self.won_level = false
+	elseif message_id == hash("timer_end") then
+		msg.post(".", "release_input_focus")
+		msg.post("dog-watch", "stop")
+		msg.post("outro", "start")
+	elseif message_id == hash("outro_end") then
+		msg.post("main:/loader#loader", "level_finished", { won_level = self.won_level })
+	end
+end
+
+local function start_drag_food(self, action)
+	assert(not self.dragged_food)
+	
+	local closest_food = nil
+	local closest_distance = math.huge
+	local click_position = vmath.vector3(action.x, action.y, 0)
+	for i = 1, #self.food do
+		local food = self.food[i]
+		local food_position = go.get_position(food)
+		food_position.z = 0
+		local distance = vmath.length(click_position - food_position)
+		if distance < closest_distance then
+			closest_distance = distance
+			closest_food = food
+		end
+	end
+
+	if closest_distance < 40 then
+		msg.post(msg.url(nil, closest_food, "collision"), "disable")
+		msg.post("dog-watch", "food_drag_start", { food = closest_food })
+		self.dragged_food = closest_food
+	end
+end
+
+local function stop_drag_food(self)
+	if not self.dragged_food then
+		return
+	end
+	msg.post(msg.url(nil, self.dragged_food, "collision"), "enable")
+	msg.post("dog-watch", "food_drag_stop")
+	self.dragged_food = nil
+end
+
+local function drag_food(self, action)
+	if not self.dragged_food then
+		return
+	end
+	local position = go.get_position(self.dragged_food)
+	position.x = action.x
+	position.y = action.y
+	go.set_position(position, self.dragged_food)
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("click") then
+		if not action.released and not self.dragged_food then
+			start_drag_food(self, action)
+		elseif action.released then
+			stop_drag_food(self)
+		else
+			drag_food(self, action)
+		end
+		return true
+	end
+end

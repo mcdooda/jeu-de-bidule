@@ -50,24 +50,6 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "playball-level-proxy"
-  type: "collectionproxy"
-  data: "collection: \"/03_playball/level/3_playball.collection\"\n"
-  "exclude: false\n"
-  ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-}
-embedded_components {
   id: "feed-level-proxy"
   type: "collectionproxy"
   data: "collection: \"/04_feed/level/4_feed.collection\"\n"
@@ -197,6 +179,24 @@ embedded_components {
   id: "find-level-proxy"
   type: "collectionproxy"
   data: "collection: \"/10_find/level/10_find.collection\"\n"
+  "exclude: false\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+embedded_components {
+  id: "watch-level-proxy"
+  type: "collectionproxy"
+  data: "collection: \"/11_watch/level/11_watch.collection\"\n"
   "exclude: false\n"
   ""
   position {

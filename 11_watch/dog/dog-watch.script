@@ -1,0 +1,60 @@
+local function get_closest_food_position(self)
+	local position = go.get_position()
+	position.z = 0
+	local closest_food_distance = math.huge
+	local closest_food_position
+	for i = 1, #self.food do
+		local food = self.food[i]
+		if food ~= self.dragged_food then
+			local food_position = go.get_position(food)
+			food_position.z = 0
+			local distance = vmath.length(position - food_position)
+			if distance < closest_food_distance then
+				closest_food_distance = distance
+				closest_food_position = food_position
+			end
+		end
+	end
+	return closest_food_position
+end
+
+function init(self)
+	self.food = {}
+	self.dragged_food = nil
+	self.reached_food = false
+	self.stopped = false
+	self.speed = 20
+end
+
+function update(self, dt)
+	if self.reached_food or self.stopped then
+		return
+	end
+	local closest_food_position = get_closest_food_position(self)
+	local dog_position = go.get_position()
+	local position = vmath.vector3(dog_position)
+	position.z = 0
+	local direction = vmath.normalize(closest_food_position - position)
+	sprite.set_hflip("#sprite", direction.x < 0)
+	local new_position = dog_position + direction * self.speed * dt
+	go.set_position(new_position)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("add_food") then
+		self.food[#self.food + 1] = message.food
+	elseif message_id == hash("start") then
+		self.speed = 60
+	elseif message_id == hash("stop") then
+		self.stopped = true
+		sprite.play_flipbook("#sprite", "sit")
+	elseif message_id == hash("food_drag_start") then
+		self.dragged_food = message.food
+	elseif message_id == hash("food_drag_stop") then
+		self.dragged_food = nil
+	elseif message_id == hash("trigger_response") then
+		self.reached_food = true
+		sprite.play_flipbook("#sprite", "sit")
+		msg.post("11_watch", "dog_reached_food")
+	end
+end
