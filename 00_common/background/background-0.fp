@@ -1,5 +1,5 @@
 varying mediump vec4 position;
-varying mediump vec2 var_texcoord0;
+varying highp vec2 var_texcoord0;
 
 uniform lowp sampler2D texture_sampler;
 uniform lowp vec4 color;
@@ -8,8 +8,8 @@ uniform highp vec4 time;
 
 void main()
 {
-	const float width = 100.0;
-	const float speed = 7.0;
+	const mediump float width = 100.0;
+	const mediump float speed = 7.0;
 	highp float a = mod(var_texcoord0.x * shader_scale.x - var_texcoord0.y * shader_scale.y - time.x * speed, width) / width;
 	if (a < 0.5)
 	{

@@ -39,12 +39,12 @@ function init(self)
 
 	set_sprite(self, sprites[1])
 
-	self.time = 0
+	self.time = vmath.vector4(0, 0, 0, 0)
 end
 
 function update(self, dt)
-	self.time = self.time + dt
-	go.set(self.sprite, "time", vmath.vector4(self.time, 0, 0, 0))
+	self.time.x = self.time.x + dt
+	go.set(self.sprite, "time", self.time)
 end
 
 function on_message(self, message_id, message, sender)
