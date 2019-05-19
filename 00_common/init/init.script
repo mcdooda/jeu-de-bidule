@@ -2,7 +2,20 @@ function init(self)
 	math.randomseed(os.clock() * 100000000000)
 
 	msg.post("@render:", "use_fixed_fit_projection")
-	
-	msg.post("/loader#loader", "load_level", { level_name = "watch" })
-	--msg.post("/loader#loader", "load_first_level")
+
+	local level_to_load
+
+	-- if a hash is provided, load this level
+	if html5 then
+		local url_hash = html5.run("window.location.hash")
+		if url_hash and #url_hash > 1 then
+			level_to_load = string.sub(url_hash, 2)
+		end
+	end
+
+	if level_to_load then
+		msg.post("/loader#loader", "load_level", { level_name = level_to_load })
+	else
+		msg.post("/loader#loader", "load_first_level")
+	end
 end
