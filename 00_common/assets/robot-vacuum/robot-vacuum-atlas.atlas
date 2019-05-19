@@ -1,6 +1,6 @@
 images {
   image: "/00_common/assets/robot-vacuum/robot-vacuum.png"
 }
-margin: 0
+margin: 1
 extrude_borders: 0
 inner_padding: 0

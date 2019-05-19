@@ -7,6 +7,6 @@ images {
 images {
   image: "/00_common/assets/food/peanut-butter.png"
 }
-margin: 0
+margin: 1
 extrude_borders: 0
 inner_padding: 0

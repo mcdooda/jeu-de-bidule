@@ -4,6 +4,6 @@ images {
 images {
   image: "/00_common/assets/dog-food/dog-bowl-full.png"
 }
-margin: 0
+margin: 1
 extrude_borders: 0
 inner_padding: 0
