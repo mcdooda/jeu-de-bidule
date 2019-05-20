@@ -8,13 +8,3 @@ function init(self)
 	local sprite_index = math.random(1, #sprites)
 	sprite.play_flipbook("#sprite", sprites[sprite_index])
 end
-
-function update(self, dt)
-	-- Add update code here
-	-- Remove this function if not needed
-end
-
-function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Remove this function if not needed
-end

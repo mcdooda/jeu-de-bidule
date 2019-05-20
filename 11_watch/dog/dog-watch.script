@@ -1,3 +1,6 @@
+local cancel_follow_drag_duration = 2
+local cancel_follow_drop_duration = 2
+
 local function get_closest_food_position(self)
 	local position = go.get_position()
 	position.z = 0
@@ -5,7 +8,13 @@ local function get_closest_food_position(self)
 	local closest_food_position
 	for i = 1, #self.food do
 		local food = self.food[i]
-		if food ~= self.dragged_food then
+		local can_follow = true
+		if self.dragged_food == food and self.dragged_food_timer > cancel_follow_drag_duration then
+			can_follow = false
+		elseif self.dropped_food == food and self.dropped_food_timer < cancel_follow_drop_duration then
+			can_follow = false
+		end
+		if can_follow then
 			local food_position = go.get_position(food)
 			food_position.z = 0
 			local distance = vmath.length(position - food_position)
@@ -20,9 +29,16 @@ end
 
 function init(self)
 	self.food = {}
+	
 	self.dragged_food = nil
+	self.dragged_food_timer = nil
+	
+	self.dropped_food = nil
+	self.dropped_food_timer = nil
+	
 	self.reached_food = false
 	self.stopped = false
+	
 	self.speed = 20
 end
 
@@ -30,6 +46,15 @@ function update(self, dt)
 	if self.reached_food or self.stopped then
 		return
 	end
+
+	if self.dragged_food_timer then
+		self.dragged_food_timer = self.dragged_food_timer + dt
+	end
+
+	if self.dropped_food_timer then
+		self.dropped_food_timer = self.dropped_food_timer + dt
+	end
+	
 	local closest_food_position = get_closest_food_position(self)
 	local dog_position = go.get_position()
 	local position = vmath.vector3(dog_position)
@@ -44,14 +69,18 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("add_food") then
 		self.food[#self.food + 1] = message.food
 	elseif message_id == hash("start") then
-		self.speed = 60
+		self.speed = 150
 	elseif message_id == hash("stop") then
 		self.stopped = true
 		sprite.play_flipbook("#sprite", "sit")
 	elseif message_id == hash("food_drag_start") then
 		self.dragged_food = message.food
+		self.dragged_food_timer = 0
 	elseif message_id == hash("food_drag_stop") then
+		self.dropped_food = self.dragged_food
+		self.dropped_food_timer = 0
 		self.dragged_food = nil
+		self.dragged_food_timer = nil
 	elseif message_id == hash("trigger_response") then
 		self.reached_food = true
 		sprite.play_flipbook("#sprite", "sit")
