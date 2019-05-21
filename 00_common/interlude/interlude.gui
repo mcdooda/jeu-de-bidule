@@ -46,7 +46,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Occupe-toi de bidule !"
+  text: "Occupe-toi de Bidule !"
   font: "default-font"
   id: "won-text"
   xanchor: XANCHOR_NONE
