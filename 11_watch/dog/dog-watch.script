@@ -77,7 +77,7 @@ function on_message(self, message_id, message, sender)
 		self.speed = 150
 	elseif message_id == hash("stop") then
 		self.stopped = true
-		sprite.play_flipbook("#sprite", "sit")
+		sprite.play_flipbook("#sprite", "lie-down")
 	elseif message_id == hash("food_drag_start") then
 		self.dragged_food = message.food
 		self.dragged_food_timer = 0

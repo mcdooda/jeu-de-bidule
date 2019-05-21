@@ -37,7 +37,9 @@ function on_message(self, message_id, message, sender)
 		self.won_level = false
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
-		msg.post("dog-watch", "stop")
+		if self.won_level then
+			msg.post("dog-watch", "stop")
+		end
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
 		msg.post("main:/loader#loader", "level_finished", { won_level = self.won_level })
