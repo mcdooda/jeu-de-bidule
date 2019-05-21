@@ -1,3 +1,7 @@
+local settings = require("00_common.modules.settings")
+
+local screen_height = settings.screen_height
+
 local cancel_follow_drag_duration = 2
 local cancel_follow_drop_duration = 2
 
@@ -62,6 +66,7 @@ function update(self, dt)
 	local direction = vmath.normalize(closest_food_position - position)
 	sprite.set_hflip("#sprite", direction.x < 0)
 	local new_position = dog_position + direction * self.speed * dt
+	new_position.z = 1 - new_position.y / screen_height
 	go.set_position(new_position)
 end
 

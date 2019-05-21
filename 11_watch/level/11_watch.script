@@ -17,7 +17,7 @@ local function spawn_food(self)
 end
 
 function init(self)
-	msg.post("main:/background", "set_background", { color = vmath.vector4(1.0, 1.0, 1.0, 0), sprite = "#sprite-game" } )
+	msg.post("main:/background", "set_background", { color = vmath.vector4(0.94, 0.57, 0.40, 1.0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Surveille !" })
 
 	self.food = {}
@@ -62,7 +62,8 @@ local function start_drag_food(self, action)
 	end
 
 	if closest_distance < 40 then
-		msg.post(msg.url(nil, closest_food, "collision"), "disable")
+		msg.post(msg.url(nil, closest_food, "dynamic-collision"), "disable")
+		msg.post(msg.url(nil, closest_food, "kinematic-collision"), "enable")
 		msg.post("dog-watch", "food_drag_start", { food = closest_food })
 		self.dragged_food = closest_food
 	end
@@ -72,7 +73,8 @@ local function stop_drag_food(self)
 	if not self.dragged_food then
 		return
 	end
-	msg.post(msg.url(nil, self.dragged_food, "collision"), "enable")
+	msg.post(msg.url(nil, self.dragged_food, "dynamic-collision"), "enable")
+	msg.post(msg.url(nil, self.dragged_food, "kinematic-collision"), "disable")
 	msg.post("dog-watch", "food_drag_stop")
 	self.dragged_food = nil
 end
@@ -84,6 +86,7 @@ local function drag_food(self, action)
 	local position = go.get_position(self.dragged_food)
 	position.x = action.x
 	position.y = action.y
+	position.z = 1 - position.y / screen_height
 	go.set_position(position, self.dragged_food)
 end
 
