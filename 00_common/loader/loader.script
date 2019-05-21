@@ -54,7 +54,13 @@ function on_message(self, message_id, message, sender)
 		msg.post("#interlude-proxy", "enable")
 	elseif message_id == hash("interlude_finished") then
 		msg.post("#interlude-proxy", "disable")
-		msg.post(".", "load_next_level")
+		if message.try_again then
+			msg.post(".", "load_first_level")
+			msg.post("#interlude-proxy", "final")
+			msg.post("#interlude-proxy", "unload")
+		else
+			msg.post(".", "load_next_level")
+		end
 	elseif message_id == hash("proxy_loaded") then
 		if sender == msg.url("#interlude-proxy") then
 			msg.post("#interlude-proxy", "init")
@@ -63,6 +69,10 @@ function on_message(self, message_id, message, sender)
 			self.current_level = sender
 			self.current_level_name = self.loading_level_name
 			self.loading_level_name = nil
+		end
+	elseif message_id == hash("proxy_unloaded") then
+		if sender == msg.url("#interlude-proxy") then
+			msg.post("#interlude-proxy", "load")
 		end
 	end
 end

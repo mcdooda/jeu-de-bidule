@@ -38,16 +38,20 @@ local function win_golden_food(self)
 	end)
 end
 
+local function missed_golden_food(self)
+	local position = vmath.vector3(screen_width / 2, screen_height / 4, 0.7)
+	go.animate("dog-food-golden#sprite", "scale", go.PLAYBACK_ONCE_FORWARD, 0.01, go.EASING_INOUTBACK, 1, 0, function()
+		msg.post("dog-food-golden", "disable")
+		msg.post(".", "try_again")
+	end)
+end
+
 local function resume_interlude(self, won_level)
 	local won_color = vmath.vector4(0.50, 0.76, 0.42, 0)
 	local lost_color = vmath.vector4(0.76, 0.50, 0.42, 0)
-	local color
-	if won_level == false then
-		color = lost_color
-	else
-		color = won_color
-	end
+	local color = (won_level == false) and lost_color or won_color
 	msg.post("main:/background", "set_background", { color = color, sprite = "#sprite-interlude" })
+	self.current_level_index = self.current_level_index + 1
 	if won_level then
 		self.current_point_index = self.current_point_index + 1
 		if self.current_point_index == #levels then
@@ -63,11 +67,20 @@ local function resume_interlude(self, won_level)
 				end
 			end)
 		end)
+	else
+		if self.current_level_index == #levels + 1 then
+			msg.post(".", "golden_food_missed")
+			sprite.play_flipbook("dog-interlude#sprite", "lie-down")
+			timer.delay(1, false, function()
+				missed_golden_food(self)
+			end)
+		end
 	end
 end
 
 local function start_interlude(self)
 	self.current_point_index = 1
+	self.current_level_index = 1
 	local dog_init_position = get_dog_position(self.current_point_index)
 	go.set_position(dog_init_position, "dog-interlude")
 end
