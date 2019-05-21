@@ -2,13 +2,13 @@ return {
 	"main",
 	
 	"pickup",
+	"throw",
 	"feed",
 	"find",
-	"watch",
 	"pet",
 	"clean",
 	"chase",
-	"throw",
+	"watch",
 	"fly",
 	
 	--"playball",
