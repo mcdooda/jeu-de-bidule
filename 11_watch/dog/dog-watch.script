@@ -89,6 +89,6 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("trigger_response") then
 		self.reached_food = true
 		sprite.play_flipbook("#sprite", "sit")
-		msg.post("11_watch", "dog_reached_food")
+		msg.post("watch_script", "dog_reached_food")
 	end
 end

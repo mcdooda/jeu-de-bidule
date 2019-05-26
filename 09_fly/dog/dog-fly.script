@@ -14,7 +14,7 @@ local function lost_level(self)
 	if not self.lost_level and not self.won_level then
 		self.lost_level = true
 		msg.post(".", "release_input_focus")
-		msg.post("9_fly", "stop")
+		msg.post("fly_script", "stop")
 		msg.post("#kinematic-collision", "disable")
 		particlefx.stop("#dog-fly-smoke")
 	end

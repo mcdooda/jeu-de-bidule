@@ -1,4 +1,5 @@
 function init(self)
+	self.difficulty = 1
 	msg.post("#interlude-proxy", "load")
 	msg.post(".", "acquire_input_focus")
 end
@@ -8,10 +9,13 @@ function on_message(self, message_id, message, sender)
 		msg.post("level-loader", "load_level", message)
 	elseif message_id == hash("load_first_level") then
 		msg.post("interlude:/interlude", "start")
-		msg.post("level-loader", "load_first_level")
+		msg.post("level-loader", "load_first_level", message)
 	elseif message_id == hash("load_next_level") then
-		msg.post("level-loader", "load_next_level")
+		msg.post("level-loader", "load_next_level", { difficulty = self.difficulty })
 	elseif message_id == hash("level_finished") then
+		if message.difficulty then
+			self.difficulty = message.difficulty
+		end
 		msg.post("level-loader", "unload_level")
 		msg.post("interlude:/interlude", "resume", { won_level = message.won_level })
 		msg.post("#interlude-proxy", "enable")
@@ -22,7 +26,7 @@ function on_message(self, message_id, message, sender)
 			msg.post("#interlude-proxy", "final")
 			msg.post("#interlude-proxy", "unload")
 		else
-			msg.post("level-loader", "load_next_level")
+			msg.post("level-loader", "load_next_level", { difficulty = self.difficulty })
 		end
 	elseif message_id == hash("proxy_loaded") then
 		assert(sender == msg.url("#interlude-proxy"), "unknown proxy loaded")

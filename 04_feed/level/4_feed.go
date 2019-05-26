@@ -1,5 +1,5 @@
 components {
-  id: "4_feed"
+  id: "script"
   component: "/04_feed/level/4_feed.script"
   position {
     x: 0.0

@@ -1,6 +1,6 @@
-name: "8_chase"
+name: "chase_collection"
 instances {
-  id: "8_chase"
+  id: "chase_script"
   prototype: "/08_chase/level/8_chase.go"
   position {
     x: 0.0

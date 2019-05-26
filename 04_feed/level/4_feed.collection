@@ -1,6 +1,6 @@
-name: "4_feed"
+name: "feed_collection"
 instances {
-  id: "4_feed"
+  id: "feed_script"
   prototype: "/04_feed/level/4_feed.go"
   position {
     x: 0.0

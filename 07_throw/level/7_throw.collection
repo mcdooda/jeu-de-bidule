@@ -1,6 +1,6 @@
-name: "7_throw"
+name: "throw_collection"
 instances {
-  id: "7_throw"
+  id: "throw_script"
   prototype: "/07_throw/level/7_throw.go"
   position {
     x: 0.0

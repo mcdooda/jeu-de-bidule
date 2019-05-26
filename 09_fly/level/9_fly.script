@@ -3,14 +3,21 @@ local settings = require("00_common.modules.settings")
 local screen_width = settings.screen_width
 local screen_height = settings.screen_height
 
-local num_walls = 3
-local delay_between_walls = 1.5
-local walls_speed = 200
+local level_settings = {
+	[1] = {
+		num_walls           = 3,
+		delay_between_walls = 1.5,
+		walls_speed         = 200
+	},
+	[2] = {
+		num_walls           = 20,
+		delay_between_walls = 1.2,
+		walls_speed         = 350
+	}
+}
+
 local margin = 100
 local walls_move_distance = screen_width + margin * 2
-local walls_move_duration = walls_move_distance / walls_speed
-
-local duration = num_walls * delay_between_walls + walls_move_duration
 
 local function clamp(value, min, max)
 	if value < min then
@@ -22,6 +29,10 @@ local function clamp(value, min, max)
 end
 
 local function spawn_walls(self)
+	local num_walls = self.difficulty_settings.num_walls
+	local delay_between_walls = self.difficulty_settings.delay_between_walls
+	local walls_move_duration = self.difficulty_settings.walls_move_duration
+	
 	local previous_y = screen_height / 2
 	local position = vmath.vector3()
 	position.x = screen_width + margin
@@ -31,7 +42,9 @@ local function spawn_walls(self)
 		position.y = clamp(position.y, previous_y - screen_height / 4, previous_y + screen_height / 4)
 		previous_y = position.y
 		local walls = factory.create("#walls-factory", position, nil, nil, 5)
-		go.animate(walls, "position.x", go.PLAYBACK_ONCE_FORWARD, -margin, go.EASING_LINEAR, walls_move_duration)
+		go.animate(walls, "position.x", go.PLAYBACK_ONCE_FORWARD, -margin, go.EASING_LINEAR, walls_move_duration, 0, function()
+			go.delete(walls)
+		end)
 
 		i = i + 1
 		if i >= num_walls then
@@ -47,10 +60,18 @@ function init(self)
 	self.won_level = true
 end
 
+local function init_level(self, difficulty)
+	self.difficulty_settings = assert(level_settings[difficulty], "no settings for difficulty " .. tostring(difficulty))
+	self.difficulty_settings.walls_move_duration = walls_move_distance / self.difficulty_settings.walls_speed
+	self.duration = self.difficulty_settings.num_walls * self.difficulty_settings.delay_between_walls + self.difficulty_settings.walls_move_duration
+end
+
 function on_message(self, message_id, message, sender)
-	if message_id == hash("intro_end") then
+	if message_id == hash("init_level") then
+		init_level(self, message.difficulty)
+	elseif message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
-		msg.post("timer", "start", { duration = duration })
+		msg.post("timer", "start", { duration = self.duration })
 		msg.post("dog-fly", "start")
 		spawn_walls(self)
 	elseif message_id == hash("stop") then

@@ -1,4 +1,4 @@
-name: "9_fly"
+name: "fly_collection"
 instances {
   id: "intro"
   prototype: "/00_common/ui/intro/intro.go"
@@ -60,7 +60,7 @@ instances {
   }
 }
 instances {
-  id: "9_fly"
+  id: "fly_script"
   prototype: "/09_fly/level/9_fly.go"
   position {
     x: 0.0

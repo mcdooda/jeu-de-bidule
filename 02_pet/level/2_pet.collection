@@ -1,4 +1,4 @@
-name: "2_pet"
+name: "pet_collection"
 instances {
   id: "dog-pet"
   prototype: "/02_pet/dog/dog-pet.go"
@@ -20,7 +20,7 @@ instances {
   }
 }
 instances {
-  id: "2_pet"
+  id: "pet_script"
   prototype: "/02_pet/level/2_pet.go"
   position {
     x: 0.0

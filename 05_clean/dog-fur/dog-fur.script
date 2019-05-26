@@ -19,6 +19,6 @@ function on_message(self, message_id, message, sender)
 			go.delete()
 		end)
 
-		msg.post("5_clean", "add_score", { fur_hash = msg.url(".").path })
+		msg.post("clean_script", "add_score", { fur_hash = msg.url(".").path })
 	end
 end

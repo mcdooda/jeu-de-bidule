@@ -1,5 +1,5 @@
 components {
-  id: "8_chase"
+  id: "script"
   component: "/08_chase/level/8_chase.script"
   position {
     x: 0.0

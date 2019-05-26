@@ -17,7 +17,7 @@ local function spawn_food(self, handle, time_elapsed)
 	local position = go.get_position(".")
 	position.y = position.y - 130
 	factory.create("#food-factory", position)
-	msg.post("4_feed", "food_spawned")
+	msg.post("feed_script", "food_spawned")
 end
 
 function on_message(self, message_id, message, sender)

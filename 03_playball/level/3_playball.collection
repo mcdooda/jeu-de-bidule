@@ -1,6 +1,6 @@
-name: "3_playball"
+name: "playball_collection"
 instances {
-  id: "3_playball"
+  id: "playball_script"
   prototype: "/03_playball/level/3_playball.go"
   position {
     x: 0.0

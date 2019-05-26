@@ -1,5 +1,5 @@
 components {
-  id: "6_pickup"
+  id: "script"
   component: "/06_pickup/level/6_pickup.script"
   position {
     x: 0.0

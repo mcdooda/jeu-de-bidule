@@ -18,7 +18,7 @@ local function stop_move(self)
 end
 
 function init(self)
-	msg.post("8_chase", "add_sheep")
+	msg.post("chase_script", "add_sheep")
 	
 	self.direction = nil
 	self.correction = vmath.vector3()
@@ -71,7 +71,7 @@ function on_message(self, message_id, message, sender)
 		end
 		self.entered_enclosure = true
 		start_move(self, vmath.vector3(0, 1, 0))
-		msg.post("8_chase", "add_sheep_inside")
+		msg.post("chase_script", "add_sheep_inside")
 	elseif message_id == hash("won_level") then
 		stop_move(self)
 	elseif message_id == hash("lost_level") then

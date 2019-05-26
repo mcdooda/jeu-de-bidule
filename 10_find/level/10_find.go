@@ -1,5 +1,5 @@
 components {
-  id: "10_find"
+  id: "script"
   component: "/10_find/level/10_find.script"
   position {
     x: 0.0

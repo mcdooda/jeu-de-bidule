@@ -1,4 +1,4 @@
-name: "default"
+name: "find_collection"
 instances {
   id: "intro"
   prototype: "/00_common/ui/intro/intro.go"
@@ -60,7 +60,7 @@ instances {
   }
 }
 instances {
-  id: "10_find"
+  id: "find_script"
   prototype: "/10_find/level/10_find.go"
   position {
     x: 0.0

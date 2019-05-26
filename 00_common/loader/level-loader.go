@@ -124,7 +124,7 @@ embedded_components {
 embedded_components {
   id: "main-level-proxy"
   type: "collectionproxy"
-  data: "collection: \"/01_main/level/1_level.collection\"\n"
+  data: "collection: \"/01_main/level/1_main.collection\"\n"
   "exclude: false\n"
   ""
   position {

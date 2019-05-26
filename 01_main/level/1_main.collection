@@ -1,6 +1,6 @@
-name: "1_main"
+name: "main_collection"
 instances {
-  id: "main"
+  id: "main_script"
   prototype: "/01_main/level/1_main.go"
   position {
     x: 0.0

@@ -1,5 +1,5 @@
 components {
-  id: "2_pet"
+  id: "script"
   component: "/02_pet/level/2_pet.script"
   position {
     x: 0.0

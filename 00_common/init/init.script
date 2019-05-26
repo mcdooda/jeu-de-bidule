@@ -4,6 +4,7 @@ function init(self)
 	msg.post("@render:", "use_fixed_fit_projection")
 
 	local level_to_load
+	local difficulty = 1
 
 	-- if a hash is provided, load this level
 	if html5 then
@@ -14,8 +15,8 @@ function init(self)
 	end
 
 	if level_to_load then
-		msg.post("/loader#loader", "load_level", { level_name = level_to_load })
+		msg.post("/loader#loader", "load_level", { level_name = level_to_load, difficulty = difficulty })
 	else
-		msg.post("/loader#loader", "load_first_level")
+		msg.post("/loader#loader", "load_first_level", { difficulty = difficulty })
 	end
 end

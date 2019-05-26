@@ -1,4 +1,4 @@
-name: "11_watch"
+name: "watch_collection"
 instances {
   id: "intro"
   prototype: "/00_common/ui/intro/intro.go"
@@ -60,7 +60,7 @@ instances {
   }
 }
 instances {
-  id: "11_watch"
+  id: "watch_script"
   prototype: "/11_watch/level/11_watch.go"
   position {
     x: 0.0

@@ -1,5 +1,5 @@
 components {
-  id: "9_fly"
+  id: "script"
   component: "/09_fly/level/9_fly.script"
   position {
     x: 0.0

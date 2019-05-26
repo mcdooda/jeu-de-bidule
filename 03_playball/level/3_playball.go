@@ -1,5 +1,5 @@
 components {
-  id: "3_playball"
+  id: "script"
   component: "/03_playball/level/3_playball.script"
   position {
     x: 0.0

@@ -1,6 +1,6 @@
-name: "6_pickup"
+name: "pickup_collection"
 instances {
-  id: "6_pickup"
+  id: "pickup_script"
   prototype: "/06_pickup/level/6_pickup.go"
   position {
     x: 0.0

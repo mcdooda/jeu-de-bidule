@@ -1,5 +1,5 @@
 components {
-  id: "5_clean"
+  id: "script"
   component: "/05_clean/level/5_clean.script"
   position {
     x: 0.0

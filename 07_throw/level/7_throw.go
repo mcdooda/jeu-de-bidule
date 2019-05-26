@@ -1,5 +1,5 @@
 components {
-  id: "7_throw"
+  id: "script"
   component: "/07_throw/level/7_throw.script"
   position {
     x: 0.0

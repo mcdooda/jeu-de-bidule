@@ -1,6 +1,6 @@
-name: "5_clean"
+name: "clean_collection"
 instances {
-  id: "5_clean"
+  id: "clean_script"
   prototype: "/05_clean/level/5_clean.go"
   position {
     x: 0.0

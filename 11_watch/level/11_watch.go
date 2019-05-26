@@ -1,5 +1,5 @@
 components {
-  id: "11_watch"
+  id: "script"
   component: "/11_watch/level/11_watch.script"
   position {
     x: 0.0
