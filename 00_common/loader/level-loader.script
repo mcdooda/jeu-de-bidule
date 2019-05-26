@@ -1,0 +1,50 @@
+local levels = require("00_common.levels.levels")
+
+local function init_level(proxy)
+	msg.post(proxy, "init")
+	msg.post(proxy, "enable")
+end
+
+local function deinit_level(proxy)
+	msg.post(proxy, "disable")
+	msg.post(proxy, "final")
+	msg.post(proxy, "unload")
+end
+
+local function get_level_proxy(level_name)
+	return "#" .. level_name .. "-level-proxy"
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	self.current_level_proxy = nil
+	self.current_level_index = nil
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("load_level") then
+		local proxy = get_level_proxy(message.level_name)
+		self.current_level_proxy = proxy
+		msg.post(proxy, "load")
+	elseif message_id == hash("load_first_level") then
+		self.current_level_index = 1
+		msg.post(".", "load_level", { level_name = levels[1] })
+	elseif message_id == hash("load_next_level") then
+		if not self.current_level_index then
+			-- debug mode, reload same level
+			msg.post(self.current_level_proxy, "load")
+			return
+		end
+		local next_level_index = self.current_level_index + 1
+		if next_level_index > #levels then
+			return
+		end
+		local next_level_name = levels[next_level_index]
+		self.current_level_index = next_level_index
+		msg.post(".", "load_level", { level_name = next_level_name })
+	elseif message_id == hash("unload_level") then
+		deinit_level(self.current_level_proxy)
+	elseif message_id == hash("proxy_loaded") then
+		init_level(sender)
+	end
+end
