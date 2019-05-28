@@ -27,5 +27,10 @@ function on_message(self, message_id, message, sender)
 		particlefx.play("#smoke")
 	elseif message_id == hash("stop_move") then
 		self.direction = nil
+	elseif message_id == hash("collision_response") then
+		if message.other_group == hash("dog-poop") then
+			msg.post("timer", "interrupt")
+			msg.post(msg.url(nil, message.other_id, "collision"), "disable")
+		end
 	end
 end
