@@ -3,11 +3,20 @@ local settings = require("00_common.modules.settings")
 local screen_width = settings.screen_width
 local screen_height = settings.screen_height
 
-local food_amount = 3
+local level_settings = {
+	[1] = {
+		food_amount = 3,
+		duration = 10
+	},
+	[2] = {
+		food_amount = 5,
+		duration = 40
+	}
+}
 
 local function spawn_food(self)
 	local position = vmath.vector3()
-	for i = 1, food_amount do
+	for i = 1, self.difficulty_settings.food_amount do
 		position.x = math.random(screen_width * 1 / 5, screen_width * 4 / 5)
 		position.y = math.random(screen_height * 3 / 5, screen_height * 4 / 5)
 		local food = factory.create("#food-factory", position)
@@ -22,16 +31,23 @@ function init(self)
 
 	self.food = {}
 	self.dragged_food = nil
-	spawn_food(self)
 
 	self.won_level = true
 end
 
+local function init_level(self, difficulty)
+	self.difficulty = difficulty
+	self.difficulty_settings = level_settings[difficulty]
+	spawn_food(self)
+end
+
 function on_message(self, message_id, message, sender)
-	if message_id == hash("intro_end") then
+	if message_id == hash("init_level") then
+		init_level(self, message.difficulty)
+	elseif message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
-		msg.post("timer", "start", { duration = 10 })
-		msg.post("dog-watch", "start")
+		msg.post("timer", "start", { duration = self.difficulty_settings.duration })
+		msg.post("dog-watch", "start", { difficulty = self.difficulty })
 	elseif message_id == hash("dog_reached_food") then
 		msg.post("timer", "interrupt")
 		self.won_level = false

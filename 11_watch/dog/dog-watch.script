@@ -2,8 +2,18 @@ local settings = require("00_common.modules.settings")
 
 local screen_height = settings.screen_height
 
-local cancel_follow_drag_duration = 2
-local cancel_follow_drop_duration = 2
+local difficulty_settings = {
+	[1] = {
+		speed = 100,
+		cancel_follow_drag_duration = 2,
+		cancel_follow_drop_duration = 2
+	},
+	[2] = {
+		speed = 120,
+		cancel_follow_drag_duration = 0.7,
+		cancel_follow_drop_duration = 2.5
+	}
+}
 
 local function get_closest_food_position(self)
 	local position = go.get_position()
@@ -13,9 +23,9 @@ local function get_closest_food_position(self)
 	for i = 1, #self.food do
 		local food = self.food[i]
 		local can_follow = true
-		if self.dragged_food == food and self.dragged_food_timer > cancel_follow_drag_duration then
+		if self.dragged_food == food and self.dragged_food_timer > self.difficulty_settings.cancel_follow_drag_duration then
 			can_follow = false
-		elseif self.dropped_food == food and self.dropped_food_timer < cancel_follow_drop_duration then
+		elseif self.dropped_food == food and self.dropped_food_timer < self.difficulty_settings.cancel_follow_drop_duration then
 			can_follow = false
 		end
 		if can_follow then
@@ -46,6 +56,11 @@ function init(self)
 	self.speed = 20
 end
 
+local function start(self, difficulty)
+	self.difficulty_settings = difficulty_settings[difficulty]
+	self.speed = difficulty_settings[difficulty].speed
+end
+
 function update(self, dt)
 	if self.reached_food or self.stopped then
 		return
@@ -74,7 +89,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("add_food") then
 		self.food[#self.food + 1] = message.food
 	elseif message_id == hash("start") then
-		self.speed = 100
+		start(self, message.difficulty)
 	elseif message_id == hash("stop") then
 		self.stopped = true
 		sprite.play_flipbook("#sprite", "lie-down")
