@@ -1,3 +1,36 @@
+local settings = require("00_common.modules.settings")
+
+local screen_width = settings.screen_width
+
+local function spawn_sheep(x, y)
+	return factory.create("#sheep-factory", vmath.vector3(x, y, 1), nil, nil, 3)
+end
+
+local level_settings = {
+	[1] = {
+		duration = 10,
+		spawn_sheeps = function(self)
+			spawn_sheep(240, 366)
+			spawn_sheep(294, 228)
+			spawn_sheep(87, 275)
+		end
+	},
+	[2] = {
+		duration = 8.5,
+		spawn_sheeps = function(self)
+			local min_x = 70
+			local max_x = screen_width - min_x
+			local min_y = min_x
+			local max_y = 500
+			for i = 1, 7 do
+				local x = math.random(min_x, max_x)
+				local y = math.random(min_y, max_y)
+				spawn_sheep(x, y)
+			end
+		end
+	}
+}
+
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.32, 0.60, 0.32, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Pourchasse !" })
@@ -7,10 +40,17 @@ function init(self)
 	self.num_sheeps_inside = 0
 end
 
+local function init_level(self, difficulty)
+	self.difficulty_settings = level_settings[difficulty]
+	self.difficulty_settings.spawn_sheeps(self)
+end
+
 function on_message(self, message_id, message, sender)
-	if message_id == hash("intro_end") then
+	if message_id == hash("init_level") then
+		init_level(self, message.difficulty)
+	elseif message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
-		msg.post("timer", "start", { duration = 10 })
+		msg.post("timer", "start", { duration = self.difficulty_settings.duration })
 	elseif message_id == hash("add_sheep") then
 		self.sheeps[#self.sheeps + 1] = sender
 	elseif message_id == hash("add_sheep_inside") then

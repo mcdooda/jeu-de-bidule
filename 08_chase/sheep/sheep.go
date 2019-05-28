@@ -61,7 +61,7 @@ embedded_components {
   "    index: 0\n"
   "    count: 1\n"
   "  }\n"
-  "  data: 23.485\n"
+  "  data: 7.83\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"
