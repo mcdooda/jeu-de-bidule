@@ -1,6 +1,30 @@
-function init(self)
-	local num_color_swaps = 7
-	local color_swap = math.random(1, num_color_swaps)
+local difficulty_settings = {
+	[1] = {
+		color_swaps = {1, 1, 2, 2, 3, 4, 7},
+		init_sprite = function(self)
+
+		end
+	},
+	[2] = {
+		color_swaps = {1, 2, 3, 4, 5, 6, 7, 8, 9},
+		init_sprite = function(self)
+			if math.random() < 0.5 then
+				sprite.set_hflip("#sprite", true)
+			end
+		end
+	}
+}
+
+local function init_color_swap(self, difficulty)
+	difficulty_settings[difficulty].init_sprite(self)
+	local color_swaps = difficulty_settings[difficulty].color_swaps
+	local color_swap = color_swaps[math.random(1, #color_swaps)]
 	local animation_name = "color-swap-" .. tostring(color_swap)
 	sprite.play_flipbook("#sprite", animation_name)
-end 
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("set_difficulty") then
+		init_color_swap(self, message.difficulty)
+	end
+end

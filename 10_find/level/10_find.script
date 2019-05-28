@@ -3,15 +3,25 @@ local settings = require("00_common.modules.settings")
 local screen_width = settings.screen_width
 local screen_height = settings.screen_height
 
-local num_color_swaps = 15
+local level_settings = {
+	[1] = {
+		num_color_swaps = 15,
+		duration = 10
+	},
+	[2] = {
+		num_color_swaps = 25,
+		duration = 8
+	}
+}
 
 local function spawn_color_swaps(self)
-	for i = 1, num_color_swaps do
+	for i = 1, self.difficulty_settings.num_color_swaps do
 		local position = vmath.vector3()
 		position.x = math.random(screen_width / 5, screen_width * 4 / 5)
 		position.y = math.random(screen_height * 2 / 5, screen_height * 4 / 5)
 		position.z = 1.0 - (position.y / screen_height)
 		local color_swap = factory.create("#dog-color-swap-factory", position)
+		msg.post(msg.url(nil, color_swap, nil), "set_difficulty", { difficulty = self.difficulty })
 		self.dogs[#self.dogs + 1] = color_swap
 	end
 end
@@ -22,6 +32,7 @@ local function spawn_real_dog(self)
 	position.y = math.random(screen_height * 2 / 5, screen_height * 4 / 5)
 	position.z = 1.0 - (position.y / screen_height)
 	self.real_dog = factory.create("#dog-find-factory", position)
+	msg.post(msg.url(nil, self.real_dog, nil), "set_difficulty", { difficulty = self.difficulty })
 	self.dogs[#self.dogs + 1] = self.real_dog
 end
 
@@ -31,16 +42,23 @@ function init(self)
 
 	self.real_dog = nil
 	self.dogs = {}
-	spawn_color_swaps(self)
-	spawn_real_dog(self)
 
 	self.won_level = false
 end
 
+local function init_level(self, difficulty)
+	self.difficulty = difficulty
+	self.difficulty_settings = level_settings[difficulty]
+	spawn_color_swaps(self)
+	spawn_real_dog(self)
+end
+
 function on_message(self, message_id, message, sender)
-	if message_id == hash("intro_end") then
+	if message_id == hash("init_level") then
+		init_level(self, message.difficulty)
+	elseif message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
-		msg.post("timer", "start", { duration = 10 })
+		msg.post("timer", "start", { duration = self.difficulty_settings.duration })
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
 		local animation_duration = 0.7

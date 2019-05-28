@@ -53,10 +53,10 @@ animations {
 animations {
   id: "color-swap-5"
   images {
-    image: "/00_common/assets/dog-color-swap/run-color-swap-2-1.png"
+    image: "/00_common/assets/dog-color-swap/run-color-swap-5-1.png"
   }
   images {
-    image: "/00_common/assets/dog-color-swap/run-color-swap-2-2.png"
+    image: "/00_common/assets/dog-color-swap/run-color-swap-5-2.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 5
@@ -66,10 +66,10 @@ animations {
 animations {
   id: "color-swap-6"
   images {
-    image: "/00_common/assets/dog-color-swap/run-color-swap-1-1.png"
+    image: "/00_common/assets/dog-color-swap/run-color-swap-6-1.png"
   }
   images {
-    image: "/00_common/assets/dog-color-swap/run-color-swap-1-2.png"
+    image: "/00_common/assets/dog-color-swap/run-color-swap-6-2.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 5
@@ -83,6 +83,32 @@ animations {
   }
   images {
     image: "/00_common/assets/dog-color-swap/run-color-swap-7-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "color-swap-8"
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-8-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-8-2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "color-swap-9"
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-9-1.png"
+  }
+  images {
+    image: "/00_common/assets/dog-color-swap/run-color-swap-9-2.png"
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 5
