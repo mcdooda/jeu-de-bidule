@@ -13,7 +13,6 @@ local function init_level(proxy, level_name, difficulty)
 	msg.post(proxy, "init")
 	msg.post(proxy, "enable")
 	local level_script_url = get_level_script_url(level_name)
-	print("init_level", difficulty)
 	msg.post(level_script_url, "init_level", { difficulty = difficulty })
 end
 
@@ -37,7 +36,6 @@ function on_message(self, message_id, message, sender)
 		self.current_level_proxy = proxy
 		self.current_level_name = message.level_name
 		self.current_level_difficulty = message.difficulty
-		print("setting difficulty", self.current_level_difficulty)
 		msg.post(proxy, "load")
 	elseif message_id == hash("load_first_level") then
 		self.current_level_index = 1
