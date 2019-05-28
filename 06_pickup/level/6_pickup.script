@@ -5,15 +5,59 @@ local screen_height = settings.screen_height
 
 local poop_z = 0.5
 local grass_z = 0.4
-
-local num_poops = 6
 local poop_margin = 40
-
-local move_duration = 0.4
 local win_move_duration = 0.3
-local pause_duration = 0.25
-local poop_duration = 0.15
-local step_duration = move_duration + pause_duration
+
+local level_settings = {
+	[1] = {
+		num_poops         = 6,
+		move_duration     = 0.4,
+		pause_duration    = 0.25,
+		poop_duration     = 0.15,
+		get_poop_spawn_position = function(self, i)
+			local min_x = poop_margin
+			local max_x = screen_width - poop_margin
+			local num_poops = self.difficulty_settings.num_poops
+
+			local position = vmath.vector3()
+			position.x = math.random(min_x, max_x)
+			position.y = i / (num_poops + 1) * screen_height
+			return position
+		end,
+		get_move_away_position = function(self, original_dog_position)
+			local position = vmath.vector3()
+			position.x = original_dog_position.x
+			position.y = screen_height - original_dog_position.y
+			return position
+		end
+	},
+	[2] = {
+		num_poops         = 16,
+		move_duration     = 0.15,
+		pause_duration    = 0.20,
+		poop_duration     = 0.10,
+		get_poop_spawn_position = function(self, i)
+			local min_x = poop_margin
+			local max_x = screen_width - poop_margin
+			local num_poops = self.difficulty_settings.num_poops
+			
+			local position = vmath.vector3()
+			position.x = math.random(min_x, max_x)
+			if i <= num_poops / 2 then
+				position.y = i / (num_poops / 2 + 1) * screen_height
+			else
+				position.y = (num_poops - i + 1) / (num_poops / 2 + 1) * screen_height
+			end
+			return position
+		end,
+		get_move_away_position = function(self, original_dog_position)
+			local position = vmath.vector3()
+			position.x = original_dog_position.x
+			position.y = original_dog_position.y
+			return position
+		end
+	}
+}
 
 local function dog_move_to(position, duration, on_complete)
 	local current_position = go.get_position("dog-pickup")
@@ -23,16 +67,19 @@ end
 
 local function plan_introduction(self)
 	local original_dog_position = go.get_position("dog-pickup")
+
+	local num_poops = self.difficulty_settings.num_poops
+	local poop_duration = self.difficulty_settings.poop_duration
+	local move_duration = self.difficulty_settings.move_duration
+	local step_duration = move_duration + self.difficulty_settings.pause_duration
+
+	local get_poop_spawn_position = self.difficulty_settings.get_poop_spawn_position
 	
-	local min_x = poop_margin
-	local max_x = screen_width - poop_margin
 	self.poops = {}
 	for i = 1, num_poops do
 		timer.delay((i - 1) * step_duration, false, function()
 			sprite.play_flipbook("dog-pickup#sprite", "run")
-			local position = vmath.vector3()
-			position.x = math.random(min_x, max_x)
-			position.y = i / (num_poops + 1) * screen_height
+			local position = get_poop_spawn_position(self, i)
 			position.z = original_dog_position.z
 			dog_move_to(position, move_duration, function()
 				sprite.play_flipbook("dog-pickup#sprite", "sit")
@@ -44,13 +91,12 @@ local function plan_introduction(self)
 			end)
 		end)
 	end
+
 	timer.delay(num_poops * step_duration, false, function()
+		local move_away_position = self.difficulty_settings.get_move_away_position(self, original_dog_position)
 		sprite.play_flipbook("dog-pickup#sprite", "run")
-		local position = vmath.vector3()
-		position.x = original_dog_position.x
-		position.y = screen_height - original_dog_position.y
-		position.z = original_dog_position.z
-		dog_move_to(position, move_duration)
+		move_away_position.z = original_dog_position.z
+		dog_move_to(move_away_position, move_duration)
 	end)
 end
 
@@ -76,21 +122,27 @@ end
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.32, 0.60, 0.32, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Ramasse !" })
-	plan_introduction(self)
 	spawn_grass(self)
 
 	self.won_level = false
 	self.score = 0
 end
 
+local function init_level(self, difficulty)
+	self.difficulty_settings = level_settings[difficulty]
+	plan_introduction(self)
+end
+
 function on_message(self, message_id, message, sender)
-	if message_id == hash("intro_end") then
+	if message_id == hash("init_level") then
+		init_level(self, message.difficulty)
+	elseif message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
 		msg.post("timer", "start", { duration = 5 })
 	elseif message_id == hash("add_score") then
 		self.score = self.score + 1
 		self.poops[message.poop_hash] = nil
-		if self.score >= num_poops then
+		if self.score >= self.difficulty_settings.num_poops then
 			self.won_level = true
 			msg.post("timer", "interrupt")
 		end
