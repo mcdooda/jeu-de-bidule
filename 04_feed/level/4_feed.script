@@ -1,3 +1,14 @@
+local level_settings = {
+	[1] = {
+		duration = 5,
+		required_ratio = 0.7
+	},
+	[2] = {
+		duration = 20,
+		required_ratio = 0.9
+	}
+}
+
 function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.52, 0.40, 0.40, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Nourris !" })
@@ -8,11 +19,18 @@ function init(self)
 	self.food_amount = 0
 end
 
+local function init_level(self, difficulty)
+	self.difficulty_settings = level_settings[difficulty]
+	msg.post("dog-food-bag", "set_difficulty", { difficulty = difficulty })
+end
+
 function on_message(self, message_id, message, sender)
-	if message_id == hash("intro_end") then
-		msg.post("timer", "start", { duration = 5 })
+	if message_id == hash("init_level") then
+		init_level(self, message.difficulty)
+	elseif message_id == hash("intro_end") then
+		msg.post("timer", "start", { duration = self.difficulty_settings.duration })
 		msg.post("dog-food-bag", "start_spawn_food")
-		timer.delay(3.5, false, function()
+		timer.delay(self.difficulty_settings.duration - 1.5, false, function()
 			msg.post("dog-food-bag", "stop_spawn_food")
 		end)
 	elseif message_id == hash("food_spawned") then
@@ -20,7 +38,7 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("add_score") then
 		self.score = self.score + 1
 	elseif message_id == hash("timer_end") then
-		if self.score > self.food_amount * 0.7 then
+		if self.score > self.food_amount * self.difficulty_settings.required_ratio then
 			self.won_level = true
 			sprite.play_flipbook("dog-bowl#sprite", hash("dog-bowl-full"))
 		else
