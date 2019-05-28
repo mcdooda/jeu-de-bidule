@@ -54,9 +54,19 @@ local function resume_interlude(self, won_level)
 	self.current_level_index = self.current_level_index + 1
 	if won_level then
 		self.current_point_index = self.current_point_index + 1
-		if self.current_point_index == #levels then
-			msg.post(".", "golden_food_reached")
+	end
+	if self.current_point_index == #levels then
+		msg.post(".", "golden_food_reached")
+	elseif self.current_level_index == #levels + 1 then
+		msg.post(".", "golden_food_missed")
+		if not won_level then
+			sprite.play_flipbook("dog-interlude#sprite", "lie-down")
 		end
+		timer.delay(1, false, function()
+			missed_golden_food(self)
+		end)
+	end
+	if won_level then
 		local new_dog_position = get_dog_position(self.current_point_index)
 		timer.delay(1, false, function()
 			sprite.play_flipbook("dog-interlude#sprite", "run")
@@ -64,17 +74,11 @@ local function resume_interlude(self, won_level)
 				sprite.play_flipbook("dog-interlude#sprite", "sit")
 				if self.current_point_index == #levels then
 					win_golden_food(self)
+				elseif self.current_level_index == #levels + 1 then
+					sprite.play_flipbook("dog-interlude#sprite", "lie-down")
 				end
 			end)
 		end)
-	else
-		if self.current_level_index == #levels + 1 then
-			msg.post(".", "golden_food_missed")
-			sprite.play_flipbook("dog-interlude#sprite", "lie-down")
-			timer.delay(1, false, function()
-				missed_golden_food(self)
-			end)
-		end
 	end
 end
 
