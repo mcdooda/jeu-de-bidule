@@ -43,6 +43,7 @@ embedded_components {
   "restitution: 0.2\n"
   "group: \"default\"\n"
   "mask: \"default\"\n"
+  "mask: \"target-area\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

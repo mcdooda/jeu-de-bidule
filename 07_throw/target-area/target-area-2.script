@@ -1,0 +1,31 @@
+local scale = vmath.vector3(100, 100, 1)
+
+local function randomize_position(self)
+	local position = go.get_position()
+	position.x = position.x + math.random(-180, 180)
+	position.y = position.y + math.random(-80, 80)
+	go.set_position(position)
+end
+
+function init(self)
+	go.set_scale(scale)
+	self.time = vmath.vector4()
+	go.set("#sprite", "shader_scale", vmath.vector4(scale.x, scale.y, scale.z, 0))
+	go.set("#sprite", "color", vmath.vector4(0, 0, 1, 0.1))
+	randomize_position(self)
+end
+
+function update(self, dt)
+	self.time.x = self.time.x + dt
+	go.set("#sprite", "time", self.time)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") then
+		if message.enter then
+			go.set("#sprite", "color", vmath.vector4(0, 0.5, 0, 0.01))
+		else
+			go.set("#sprite", "color", vmath.vector4(0, 0, 1, 0.1))
+		end
+	end
+end

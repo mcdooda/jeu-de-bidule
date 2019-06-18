@@ -1,0 +1,23 @@
+local scale = vmath.vector3(440, 276, 1)
+
+function init(self)
+	go.set_scale(scale)
+	self.time = vmath.vector4()
+	go.set("#sprite", "shader_scale", vmath.vector4(scale.x, scale.y, scale.z, 0))
+	go.set("#sprite", "color", vmath.vector4(0, 0, 1, 0.1))
+end
+
+function update(self, dt)
+	self.time.x = self.time.x + dt
+	go.set("#sprite", "time", self.time)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") then
+		if message.enter then
+			go.set("#sprite", "color", vmath.vector4(0, 0.5, 0, 0.01))
+		else
+			go.set("#sprite", "color", vmath.vector4(0, 0, 1, 0.1))
+		end
+	end
+end

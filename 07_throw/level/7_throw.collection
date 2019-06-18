@@ -159,6 +159,46 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "target-area-1"
+  prototype: "/07_throw/target-area/target-area-1.go"
+  position {
+    x: 215.0
+    y: 337.0
+    z: -0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "target-area-2"
+  prototype: "/07_throw/target-area/target-area-2.go"
+  position {
+    x: 215.0
+    y: 350.0
+    z: -0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 collection_instances {
   id: "walls"
   collection: "/00_common/walls/walls.collection"
@@ -180,23 +220,3 @@ collection_instances {
   }
 }
 scale_along_z: 0
-embedded_instances {
-  id: "limit"
-  data: ""
-  position {
-    x: 219.0
-    y: 195.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}

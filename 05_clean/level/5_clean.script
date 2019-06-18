@@ -104,7 +104,6 @@ function on_message(self, message_id, message, sender)
 		self.fur[message.fur_hash] = nil
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
-		print(self.score / fur_amount)
 		if self.score > fur_amount * self.difficulty_settings.required_clean_ratio then
 			self.won_level = true
 			fade_fur(self)

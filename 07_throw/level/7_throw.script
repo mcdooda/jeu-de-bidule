@@ -1,3 +1,14 @@
+local difficulty_settings = {
+	[1] = {
+		duration = 5
+	},
+	[2] = {
+		duration = 2
+	}
+}
+
+local num_difficulty_levels = #difficulty_settings
+
 local function throw_toy(self)
 	local force = vmath.vector3()
 	local duration = self.released.time - self.pressed.time
@@ -29,10 +40,19 @@ function init(self)
 		position = nil,
 		time = nil
 	}
-	self.limit_y = go.get_position("limit").y
 	self.toy_thrown = false
 	self.toy_stopped = false
 	self.toy_previous_position = go.get_position("sheep-toy")
+	self.toy_inside_target_area = false
+
+	for i = 1, num_difficulty_levels do
+		msg.post("target-area-" .. tostring(i), "disable")
+	end
+end
+
+local function init_level(self, difficulty)
+	self.difficulty_settings = difficulty_settings[difficulty]
+	msg.post("target-area-" .. tostring(difficulty), "enable")
 end
 
 function update(self, dt)
@@ -50,22 +70,29 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("intro_end") then
+	if message_id == hash("init_level") then
+		init_level(self, message.difficulty)
+	elseif message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
-		msg.post("timer", "start", { duration = 5 })
+		msg.post("timer", "start", { duration = self.difficulty_settings.duration })
+	elseif message_id == hash("target_area_trigger") then
+		self.toy_inside_target_area = message.enter
 	elseif message_id == hash("toy_stopped") then
+		for i = 1, num_difficulty_levels do
+			msg.post("target-area-" .. tostring(i), "disable")
+		end
 		msg.post("sheep-toy#collision", "disable")
 		local toy_position = go.get_position("sheep-toy")
 		local dog_z = go.get_position("dog-throw").z
 		local destination
 		local animation
-		if toy_position.y > self.limit_y then
+		if self.toy_inside_target_area then
 			self.won_level = true
 			destination = vmath.vector3(toy_position.x, toy_position.y, dog_z)
 			animation = hash("run")
 		else
 			sprite.set_hflip("dog-throw#sprite", true)
-			destination = vmath.vector3(-150, 500, dog_z)
+			destination = vmath.vector3(-150, 400, dog_z)
 			animation = hash("idle")
 		end
 		sprite.play_flipbook("dog-throw#sprite", animation)

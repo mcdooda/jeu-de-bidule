@@ -13,3 +13,9 @@ function update(self, dt)
 	local scale = remap(y, self.init_y, scale_0_y, self.init_scale, 0)
 	go.set_scale(scale)
 end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") then
+		msg.post("throw_script", "target_area_trigger", { enter = message.enter })
+	end
+end
