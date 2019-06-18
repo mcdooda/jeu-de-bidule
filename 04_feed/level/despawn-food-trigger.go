@@ -1,3 +1,18 @@
+components {
+  id: "despawn-food-trigger"
+  component: "/04_feed/level/despawn-food-trigger.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
 embedded_components {
   id: "collisionobject"
   type: "collisionobject"
@@ -7,7 +22,7 @@ embedded_components {
   "friction: 0.1\n"
   "restitution: 0.5\n"
   "group: \"default\"\n"
-  "mask: \"default\"\n"
+  "mask: \"dog-food\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"

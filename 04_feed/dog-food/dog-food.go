@@ -1,18 +1,3 @@
-components {
-  id: "dog-food"
-  component: "/04_feed/dog-food/dog-food.script"
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-}
 embedded_components {
   id: "sprite"
   type: "sprite"
@@ -41,8 +26,9 @@ embedded_components {
   "mass: 1.0\n"
   "friction: 0.0\n"
   "restitution: 0.0\n"
-  "group: \"default\"\n"
+  "group: \"dog-food\"\n"
   "mask: \"default\"\n"
+  "mask: \"dog-food\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"

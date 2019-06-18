@@ -5,7 +5,7 @@ local level_settings = {
 	},
 	[2] = {
 		duration = 20,
-		required_ratio = 0.9
+		required_ratio = 0.95
 	}
 }
 

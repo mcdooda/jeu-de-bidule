@@ -6,7 +6,8 @@ local difficulty_settings = {
 	[1] = {
 		animate = function(self)
 			go.animate("dog-food-bag", "position", go.PLAYBACK_LOOP_PINGPONG, self.right_position, go.EASING_INOUTCUBIC, 2, math.random() * 1.5)
-		end
+		end,
+		food_initial_force_y = -10000
 	},
 	[2] = {
 		animate = function(self)
@@ -18,7 +19,8 @@ local difficulty_settings = {
 				go.animate("dog-food-bag", "position", go.PLAYBACK_ONCE_FORWARD, move_to_position, go.EASING_INOUTCUBIC, duration, 0, move)
 			end
 			move()
-		end
+		end,
+		food_initial_force_y = -45000
 	}
 }
 
@@ -35,13 +37,33 @@ function init(self)
 end
 
 local function init_difficulty(self, difficulty)
-	difficulty_settings[difficulty].animate(self)
+	self.difficulty_settings = difficulty_settings[difficulty]
+	self.difficulty_settings.animate(self)
 end
 
 local function spawn_food(self, handle, time_elapsed)
 	local position = go.get_position(".")
 	position.y = position.y - 130
-	factory.create("#food-factory", position)
+	
+	local food_id = factory.create("#food-factory", position)
+
+	-- apply force
+	go.set_scale(1, food_id)
+	local angle = math.pi * math.random()
+	local rotation = vmath.quat_rotation_z(angle)
+	go.set_rotation(rotation, food_id)
+
+	local force = vmath.vector3()
+	force.x = 0
+	force.y = self.difficulty_settings.food_initial_force_y
+	force.z = 0
+
+	local force_position = vmath.vector3(position)
+	force_position.x = force_position.x + math.random(-1, 1)
+
+	msg.post(msg.url(nil, food_id, "collision"), "apply_force", { force = force, position = force_position })
+
+	-- notify level script
 	msg.post("feed_script", "food_spawned")
 end
 
