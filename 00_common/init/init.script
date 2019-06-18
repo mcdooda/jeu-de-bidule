@@ -1,7 +1,8 @@
 function init(self)
 	math.randomseed(os.time())
 
-	msg.post("@render:", "use_fixed_fit_projection")
+	msg.post("@render:", "use_fixed_projection")
+	--msg.post("@system:", "toggle_physics_debug")
 
 	local level_to_load
 	local difficulty = 1
