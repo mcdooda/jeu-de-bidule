@@ -14,30 +14,25 @@ function init(self)
 	msg.post("main:/background", "set_background", { color = vmath.vector4(0.32, 0.60, 1, 0), sprite = "#sprite-game" } )
 	msg.post("/intro#intro", "start", { text = "Caresse !" })
 	self.won_level = false
-	self.score = 0
-	self.hand_visible = true
 	hide_hand(self)
 end
 
-function update(self, dt)
-	if self.hand_visible then
-		self.score = self.score + dt
-	end
+local function init_level(self, difficulty)
+	msg.post("dog-pet", "set_difficulty", { difficulty = difficulty })
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("intro_end") then
+	if message_id == hash("init_level") then
+		init_level(self, message.difficulty)
+	elseif message_id == hash("intro_end") then
 		msg.post(".", "acquire_input_focus")
 		msg.post("timer", "start", { duration = 5 })
+	elseif message_id == hash("won_level") then
+		self.won_level = true
 	elseif message_id == hash("timer_end") then
 		msg.post(".", "release_input_focus")
-		if self.score > 2.5 then
-			self.won_level = true
-			sprite.play_flipbook("dog-pet#sprite", hash("goggly-eyes"))
-		else
-			sprite.play_flipbook("dog-pet#sprite", hash("cry"))
-		end
 		hide_hand(self)
+		msg.post("dog-pet", "play_end_animation")
 		msg.post("outro", "start")
 	elseif message_id == hash("outro_end") then
 		msg.post("main:/loader#loader", "level_finished", { won_level = self.won_level })

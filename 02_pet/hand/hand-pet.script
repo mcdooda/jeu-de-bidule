@@ -1,20 +1,17 @@
-function init(self)
-	self.particles_playing = false
-	self.score = 0
-end
-
 function on_message(self, message_id, message, sender)
 	if message_id == hash("move") then
 		msg.post("#sprite", "enable")
+		msg.post("#collision", "enable")
 		local z = go.get_position().z
 		go.set_position(vmath.vector3(message.x, message.y, z))
-		if not self.particles_playing then
-			self.particles_playing = true
-			particlefx.play("#hearts")
-		end
 	elseif message_id == hash("hide") then
 		msg.post("#sprite", "disable")
-		particlefx.stop("#hearts")
-		self.particles_playing = false
+		msg.post("#collision", "disable")
+	elseif message_id == hash("trigger_response") then
+		if message.enter then
+			particlefx.play("#hearts")
+		else
+			particlefx.stop("#hearts")
+		end
 	end
 end

@@ -43,8 +43,8 @@ instances {
   id: "hand-pet"
   prototype: "/02_pet/hand/hand-pet.go"
   position {
-    x: 623.0
-    y: 320.0
+    x: 823.0
+    y: 245.0
     z: 1.0
   }
   rotation {
@@ -102,26 +102,6 @@ instances {
 instances {
   id: "outro"
   prototype: "/00_common/ui/outro/outro.go"
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-collection_instances {
-  id: "walls"
-  collection: "/00_common/walls/walls.collection"
   position {
     x: 0.0
     y: 0.0

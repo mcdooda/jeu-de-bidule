@@ -61,8 +61,6 @@ function init(self)
 
 	self.won_level = false
 	self.score = 0
-
-	--msg.post("@system:", "toggle_physics_debug")
 end
 
 local function init_level(self, difficulty)
